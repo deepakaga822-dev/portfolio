@@ -164,16 +164,16 @@ const cls=n=>n>=0?'pos':'neg';
 
 // ── Storage ───────────────────────────────────────────────
 function sv(){
-  try{localStorage.setItem('famport_v3',JSON.stringify(port));}catch(e){}
+  try{localStorage.setItem('famport_v4',JSON.stringify(port));}catch(e){}
   try{localStorage.setItem('famport_mcmp',JSON.stringify(manualCMP));}catch(e){}
 }
 // Pre-loaded data (reconstructed from screenshots — Aug 2026)
-const PRELOADED={"stocks": [{"id": "llze978", "name": "Aeroflex Industries", "symbol": "AEROFLEX", "account": "Chanchal", "qty": 186, "avgPrice": 403.74, "sector": "TIER 6"}, {"id": "8mtmvxb", "name": "CDSL", "symbol": "CDSL", "account": "Chanchal", "qty": 70, "avgPrice": 1440.6, "sector": "TIER 6"}, {"id": "eagwrg9", "name": "Coal India", "symbol": "COALINDIA", "account": "Chanchal", "qty": 1, "avgPrice": 402.6, "sector": "TIER 6"}, {"id": "y5tm0bz", "name": "Inventurus Precision", "symbol": "INVPRECQ", "account": "Chanchal", "qty": 119, "avgPrice": 629.99, "sector": "TIER 6"}, {"id": "xqpur74", "name": "Jaro Education", "symbol": "JARO", "account": "Chanchal", "qty": 131, "avgPrice": 763.59, "sector": "TIER 6"}, {"id": "71pc6r8", "name": "Rajesh Power Services", "symbol": "RAJESH.BO", "account": "Chanchal", "qty": 100, "avgPrice": 883, "sector": "TIER 6"}, {"id": "3h8jdam", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Chanchal", "qty": 1, "avgPrice": 1320.4, "sector": "TIER 6"}, {"id": "h0xdsrj", "name": "SBI", "symbol": "SBIN", "account": "Chanchal", "qty": 1, "avgPrice": 1073.2, "sector": "TIER 6"}, {"id": "gnzowgm", "name": "Vikran Engineering", "symbol": "VIKRAN", "account": "Chanchal", "qty": 1560, "avgPrice": 96.24, "sector": "TIER 6"}, {"id": "0eqxbky", "name": "WAAREEENER", "symbol": "WAAREEENER", "account": "Chanchal", "qty": 62, "avgPrice": 3230, "sector": "TIER 6"}, {"id": "6hy2sdj", "name": "Coal India", "symbol": "COALINDIA", "account": "Pawan Kumar", "qty": 1, "avgPrice": 402.45, "sector": "TIER 6"}, {"id": "bxcvzp6", "name": "HDFC Bank", "symbol": "HDFCBANK", "account": "Pawan Kumar", "qty": 144, "avgPrice": 705.23, "sector": "TIER 6"}, {"id": "73crkq5", "name": "Hindustan Zinc", "symbol": "HINDZINC", "account": "Pawan Kumar", "qty": 202, "avgPrice": 294.94, "sector": "TIER 6"}, {"id": "wimur8v", "name": "Lloyd's Engineering", "symbol": "LLOYDSENGG", "account": "Pawan Kumar", "qty": 1170, "avgPrice": 64.17, "sector": "TIER 6"}, {"id": "gmtb0nb", "name": "Lloyd's Enterprises", "symbol": "LLOYDSENT", "account": "Pawan Kumar", "qty": 1027, "avgPrice": 72.85, "sector": "TIER 6"}, {"id": "cctgbcw", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Pawan Kumar", "qty": 1, "avgPrice": 1320.5, "sector": "TIER 6"}, {"id": "w8nvvmw", "name": "Sanathan Textiles", "symbol": "SANATHAN", "account": "Pawan Kumar", "qty": 100, "avgPrice": 494.96, "sector": "TIER 6"}, {"id": "o01uttj", "name": "SBI", "symbol": "SBIN", "account": "Pawan Kumar", "qty": 1, "avgPrice": 1074.3, "sector": "TIER 6"}, {"id": "pqaaehb", "name": "Aarti Industries", "symbol": "AARTIIND", "account": "Pawan HUF", "qty": 83, "avgPrice": 647, "sector": "TIER 6"}, {"id": "9n8ujbo", "name": "Axis Bank", "symbol": "AXISBANK", "account": "Pawan HUF", "qty": 37, "avgPrice": 1096, "sector": "TIER 6"}, {"id": "r00nset", "name": "Coal India", "symbol": "COALINDIA", "account": "Pawan HUF", "qty": 1, "avgPrice": 402.5, "sector": "TIER 6"}, {"id": "l78nsgg", "name": "PNB Housing Finance", "symbol": "PNBHOUSING", "account": "Pawan HUF", "qty": 152, "avgPrice": 661, "sector": "TIER 6"}, {"id": "v4a4gct", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Pawan HUF", "qty": 1, "avgPrice": 1322, "sector": "TIER 6"}, {"id": "wo3n4nk", "name": "SAIL", "symbol": "SAIL", "account": "Pawan HUF", "qty": 312, "avgPrice": 129.7, "sector": "TIER 6"}, {"id": "ao96fq0", "name": "SBI", "symbol": "SBIN", "account": "Pawan HUF", "qty": 1, "avgPrice": 1074.1, "sector": "TIER 6"}, {"id": "227r5um", "name": "South Indian Bank", "symbol": "SOUTHBANK", "account": "Pawan HUF", "qty": 1850, "avgPrice": 27.25, "sector": "TIER 6"}, {"id": "fpacnpe", "name": "Coal India", "symbol": "COALINDIA", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 402.35, "sector": "TIER 6"}, {"id": "e3zp5ch", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 1320.9, "sector": "TIER 6"}, {"id": "s6aqyju", "name": "SBI", "symbol": "SBIN", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 1074.2, "sector": "TIER 6"}, {"id": "ay3n9pf", "name": "Coal India", "symbol": "COALINDIA", "account": "Deepak HUF", "qty": 1, "avgPrice": 402.7, "sector": "TIER 6"}, {"id": "5wj9b2d", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Deepak HUF", "qty": 1, "avgPrice": 1320.1, "sector": "TIER 6"}, {"id": "pta3z7v", "name": "SBI", "symbol": "SBIN", "account": "Deepak HUF", "qty": 1, "avgPrice": 1073.8, "sector": "TIER 6"}, {"id": "8jm9ik9", "name": "Ganesh Green Bharat", "symbol": "GGBL-SM", "account": "Deepak HUF", "qty": 300, "avgPrice": 425, "sector": "TIER 6"}, {"id": "qxmdnhx", "name": "Monarch Surveyors & Engg", "symbol": "MSECL.BO", "account": "Deepak HUF", "qty": 600, "avgPrice": 273, "sector": "TIER 6"}, {"id": "ksjjr0i", "name": "TCS", "symbol": "TCS", "account": "Deepak HUF", "qty": 31, "avgPrice": 3178.3, "sector": "TIER 6"}], "etfs": [{"id": "sfyed5h", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Deepak", "qty": 401, "avgPrice": 27.41, "sector": "TIER 2"}, {"id": "9gxcjme", "name": "Metal ETF", "symbol": "METALIETF", "account": "Deepak", "qty": 2106, "avgPrice": 11.85, "sector": "TIER 4"}, {"id": "vlkvnf8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Deepak", "qty": 363, "avgPrice": 82.65, "sector": "TIER 5"}, {"id": "b23fnts", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Deepak", "qty": 248, "avgPrice": 162.71, "sector": "TIER 2"}, {"id": "py8zivg", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Deepak", "qty": 171, "avgPrice": 552.01, "sector": "TIER 3"}, {"id": "vj4856r", "name": "IT ETF", "symbol": "ITBEES", "account": "Deepak", "qty": 2867, "avgPrice": 39.41, "sector": "TIER 3"}, {"id": "rq2wikw", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Deepak", "qty": 1349, "avgPrice": 22.2, "sector": "TIER 3"}, {"id": "il9hmv2", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Deepak", "qty": 169, "avgPrice": 147.85, "sector": "TIER 5"}, {"id": "jfgmcrf", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Deepak", "qty": 502, "avgPrice": 59.55, "sector": "TIER 2"}, {"id": "9dv7b6s", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Deepak", "qty": 240, "avgPrice": 104.11, "sector": "TIER 4"}, {"id": "t2gxrqp", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Deepak", "qty": 560, "avgPrice": 89.24, "sector": "TIER 4"}, {"id": "bsnc6rd", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Deepak", "qty": 76, "avgPrice": 718.59, "sector": "TIER 1"}, {"id": "hxmi6wz", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Deepak", "qty": 256, "avgPrice": 19.54, "sector": "TIER 2"}, {"id": "l029bjn", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Deepak", "qty": 614, "avgPrice": 26.08, "sector": "TIER 4"}, {"id": "ee2z4xu", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Chanchal", "qty": 260, "avgPrice": 96.3, "sector": "TIER 4"}, {"id": "0klzwv8", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Chanchal", "qty": 825, "avgPrice": 30.3, "sector": "TIER 4"}, {"id": "4s0uhg8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Chanchal", "qty": 355, "avgPrice": 102.05, "sector": "TIER 5"}, {"id": "jr2pff0", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Chanchal", "qty": 331, "avgPrice": 169.85, "sector": "TIER 2"}, {"id": "acvuftu", "name": "IT ETF", "symbol": "ITBEES", "account": "Chanchal", "qty": 1008, "avgPrice": 32.71, "sector": "TIER 3"}, {"id": "1dp11np", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Chanchal", "qty": 34, "avgPrice": 740, "sector": "TIER 1"}, {"id": "yhmg5yr", "name": "Metal ETF", "symbol": "METALIETF", "account": "Chanchal", "qty": 1865, "avgPrice": 13.4, "sector": "TIER 4"}, {"id": "lod9ixo", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Chanchal", "qty": 272, "avgPrice": 80.89, "sector": "TIER 4"}, {"id": "qojgvsl", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Chanchal", "qty": 108, "avgPrice": 58.03, "sector": "TIER 2"}, {"id": "08t9o4q", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Chanchal", "qty": 18, "avgPrice": 275.94, "sector": "TIER 1"}, {"id": "qp5j2uf", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Chanchal", "qty": 871, "avgPrice": 133.81, "sector": "TIER 5"}, {"id": "qqcrw8a", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Pawan Kumar", "qty": 53, "avgPrice": 571.27, "sector": "TIER 3"}, {"id": "197tau6", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Pawan Kumar", "qty": 113, "avgPrice": 86.75, "sector": "TIER 4"}, {"id": "hkq6f8e", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Pawan Kumar", "qty": 184, "avgPrice": 27.25, "sector": "TIER 4"}, {"id": "30atkm2", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Pawan Kumar", "qty": 654, "avgPrice": 82.39, "sector": "TIER 5"}, {"id": "qbq56wv", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Pawan Kumar", "qty": 213, "avgPrice": 164.11, "sector": "TIER 2"}, {"id": "scjb7n5", "name": "IT ETF", "symbol": "ITBEES", "account": "Pawan Kumar", "qty": 1524, "avgPrice": 36.75, "sector": "TIER 3"}, {"id": "cqg9ja2", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Pawan Kumar", "qty": 38, "avgPrice": 661.64, "sector": "TIER 1"}, {"id": "vlk44pc", "name": "Metal ETF", "symbol": "METALIETF", "account": "Pawan Kumar", "qty": 1911, "avgPrice": 13.08, "sector": "TIER 4"}, {"id": "3ulgprj", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Pawan Kumar", "qty": 960, "avgPrice": 21.16, "sector": "TIER 2"}, {"id": "297x3vw", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Pawan Kumar", "qty": 444, "avgPrice": 56.43, "sector": "TIER 2"}, {"id": "558cyci", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Pawan Kumar", "qty": 1645, "avgPrice": 31.02, "sector": "TIER 2"}, {"id": "jcd1674", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Pawan Kumar", "qty": 19, "avgPrice": 268.19, "sector": "TIER 1"}, {"id": "xs0uw7b", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Pawan Kumar", "qty": 948, "avgPrice": 26.38, "sector": "TIER 3"}, {"id": "49bcvzm", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Pawan Kumar", "qty": 1388, "avgPrice": 131.85, "sector": "TIER 5"}, {"id": "ghuq9mv", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Pawan HUF", "qty": 58, "avgPrice": 512.5, "sector": "TIER 3"}, {"id": "haiybhl", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Pawan HUF", "qty": 549, "avgPrice": 100.17, "sector": "TIER 4"}, {"id": "v96vd19", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Pawan HUF", "qty": 1917, "avgPrice": 28.88, "sector": "TIER 4"}, {"id": "m7m3fjr", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Pawan HUF", "qty": 599, "avgPrice": 96.76, "sector": "TIER 5"}, {"id": "hknyxpp", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Pawan HUF", "qty": 187, "avgPrice": 161.2, "sector": "TIER 2"}, {"id": "3r5n45w", "name": "IT ETF", "symbol": "ITBEES", "account": "Pawan HUF", "qty": 3217, "avgPrice": 39.82, "sector": "TIER 3"}, {"id": "906wwb2", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Pawan HUF", "qty": 7, "avgPrice": 690.51, "sector": "TIER 1"}, {"id": "8aq6xla", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Pawan HUF", "qty": 1388, "avgPrice": 21.6, "sector": "TIER 2"}, {"id": "1dqap6q", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Pawan HUF", "qty": 182, "avgPrice": 54.67, "sector": "TIER 2"}, {"id": "gshnigk", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Pawan HUF", "qty": 20, "avgPrice": 261.43, "sector": "TIER 1"}, {"id": "0as5gxg", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Pawan HUF", "qty": 3542, "avgPrice": 23.48, "sector": "TIER 3"}, {"id": "4hti5bo", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Pawan HUF", "qty": 611, "avgPrice": 97.7, "sector": "TIER 5"}, {"id": "pyrcy0b", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Sunita Agarwal", "qty": 44, "avgPrice": 570, "sector": "TIER 3"}, {"id": "wkn3nbe", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Sunita Agarwal", "qty": 530, "avgPrice": 85.11, "sector": "TIER 4"}, {"id": "q15b40n", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Sunita Agarwal", "qty": 2027, "avgPrice": 27.11, "sector": "TIER 4"}, {"id": "v9vayx8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Sunita Agarwal", "qty": 765, "avgPrice": 91.64, "sector": "TIER 5"}, {"id": "2czl4pn", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Sunita Agarwal", "qty": 320, "avgPrice": 156.03, "sector": "TIER 2"}, {"id": "r79r88h", "name": "IT ETF", "symbol": "ITBEES", "account": "Sunita Agarwal", "qty": 3410, "avgPrice": 36.47, "sector": "TIER 3"}, {"id": "xbrgqq6", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Sunita Agarwal", "qty": 21, "avgPrice": 709.21, "sector": "TIER 1"}, {"id": "j7u0knd", "name": "Metal ETF", "symbol": "METALIETF", "account": "Sunita Agarwal", "qty": 1830, "avgPrice": 13.66, "sector": "TIER 4"}, {"id": "kzhd0t6", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Sunita Agarwal", "qty": 461, "avgPrice": 54.13, "sector": "TIER 2"}, {"id": "elwvup8", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Sunita Agarwal", "qty": 998, "avgPrice": 30.07, "sector": "TIER 2"}, {"id": "kmr52ay", "name": "MON100 ETF", "symbol": "MON100", "account": "Sunita Agarwal", "qty": 28, "avgPrice": 178.58, "sector": "TIER 2"}, {"id": "czv42rc", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Sunita Agarwal", "qty": 468, "avgPrice": 170.95, "sector": "TIER 5"}, {"id": "09psnhp", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Deepak HUF", "qty": 778, "avgPrice": 32.13, "sector": "TIER 2"}, {"id": "m8g7sz9", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Deepak HUF", "qty": 159, "avgPrice": 156.92, "sector": "TIER 2"}, {"id": "yygyamp", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Deepak HUF", "qty": 134, "avgPrice": 559.3, "sector": "TIER 3"}, {"id": "m2ez6yu", "name": "IT ETF", "symbol": "ITBEES", "account": "Deepak HUF", "qty": 1327, "avgPrice": 37.71, "sector": "TIER 3"}, {"id": "14bw8ya", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Deepak HUF", "qty": 346, "avgPrice": 144.62, "sector": "TIER 5"}, {"id": "x5mbm7k", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Deepak HUF", "qty": 534, "avgPrice": 93.86, "sector": "TIER 4"}, {"id": "gyij24s", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Deepak HUF", "qty": 272, "avgPrice": 91.89, "sector": "TIER 4"}, {"id": "qje3eey", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Deepak HUF", "qty": 802, "avgPrice": 31.2, "sector": "TIER 4"}], "mf": [{"id": "5mzszei", "name": "Quant Small Cap Fund - Direct Plan", "schemeCode": "120828", "account": "Pawan Kumar", "units": 2701.643, "avgNAV": 185.06, "sector": "TIER 2"}, {"id": "ywhv9sl", "name": "HSBC Small Cap Fund - Direct Plan", "schemeCode": "151130", "account": "Pawan Kumar", "units": 1043.92, "avgNAV": 95.79, "sector": "TIER 2"}, {"id": "oyonka6", "name": "Motilal Oswal Mid Cap Fund - Direct Plan", "schemeCode": "127042", "account": "Pawan HUF", "units": 641.324, "avgNAV": 116.94, "sector": "TIER 2"}, {"id": "1codfpu", "name": "Quant Mid Cap Fund - Direct Plan", "schemeCode": "120841", "account": "Pawan HUF", "units": 2778.295, "avgNAV": 179.96, "sector": "TIER 2"}, {"id": "09ptkpe", "name": "Quant Multicap Fund - Direct Plan", "schemeCode": "120823", "account": "Sunita Agarwal", "units": 630.423, "avgNAV": 634.46, "sector": "TIER 2"}, {"id": "udq4uc3", "name": "Nippon India Large Cap Fund - Direct Plan", "schemeCode": "118632", "account": "Deepak", "units": 1015.707, "avgNAV": 98.45, "sector": "TIER 1"}, {"id": "pa7o9jw", "name": "Canara Robeco Large Cap Fund - Direct Plan", "schemeCode": "118269", "account": "Deepak", "units": 9559.81, "avgNAV": 52.3, "sector": "TIER 1"}], "gold": [], "fd": [], "nsc": [], "land": []};
+const PRELOADED={"stocks": [{"id": "llze978", "name": "Aeroflex Industries", "symbol": "AEROFLEX", "account": "Chanchal", "qty": 186, "avgPrice": 403.74, "sector": "TIER 6"}, {"id": "8mtmvxb", "name": "CDSL", "symbol": "CDSL", "account": "Chanchal", "qty": 70, "avgPrice": 1440.6, "sector": "TIER 6"}, {"id": "eagwrg9", "name": "Coal India", "symbol": "COALINDIA", "account": "Chanchal", "qty": 1, "avgPrice": 402.6, "sector": "TIER 6"}, {"id": "y5tm0bz", "name": "Inventurus Precision", "symbol": "INVPRECQ", "account": "Chanchal", "qty": 119, "avgPrice": 629.99, "sector": "TIER 6"}, {"id": "xqpur74", "name": "Jaro Education", "symbol": "JARO", "account": "Chanchal", "qty": 131, "avgPrice": 763.59, "sector": "TIER 6"}, {"id": "71pc6r8", "name": "Rajesh Power Services", "symbol": "RAJESH", "account": "Chanchal", "qty": 100, "avgPrice": 883, "sector": "TIER 6"}, {"id": "3h8jdam", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Chanchal", "qty": 1, "avgPrice": 1320.4, "sector": "TIER 6"}, {"id": "h0xdsrj", "name": "SBI", "symbol": "SBIN", "account": "Chanchal", "qty": 1, "avgPrice": 1073.2, "sector": "TIER 6"}, {"id": "gnzowgm", "name": "Vikran Engineering", "symbol": "VIKRAN", "account": "Chanchal", "qty": 1560, "avgPrice": 96.24, "sector": "TIER 6"}, {"id": "0eqxbky", "name": "WAAREEENER", "symbol": "WAAREEENER", "account": "Chanchal", "qty": 62, "avgPrice": 3230, "sector": "TIER 6"}, {"id": "6hy2sdj", "name": "Coal India", "symbol": "COALINDIA", "account": "Pawan Kumar", "qty": 1, "avgPrice": 402.45, "sector": "TIER 6"}, {"id": "bxcvzp6", "name": "HDFC Bank", "symbol": "HDFCBANK", "account": "Pawan Kumar", "qty": 144, "avgPrice": 705.23, "sector": "TIER 6"}, {"id": "73crkq5", "name": "Hindustan Zinc", "symbol": "HINDZINC", "account": "Pawan Kumar", "qty": 202, "avgPrice": 294.94, "sector": "TIER 6"}, {"id": "wimur8v", "name": "Lloyd's Engineering", "symbol": "LLOYDSENGG", "account": "Pawan Kumar", "qty": 1170, "avgPrice": 64.17, "sector": "TIER 6"}, {"id": "gmtb0nb", "name": "Lloyd's Enterprises", "symbol": "LLOYDSENT", "account": "Pawan Kumar", "qty": 1027, "avgPrice": 72.85, "sector": "TIER 6"}, {"id": "cctgbcw", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Pawan Kumar", "qty": 1, "avgPrice": 1320.5, "sector": "TIER 6"}, {"id": "w8nvvmw", "name": "Sanathan Textiles", "symbol": "SANATHAN", "account": "Pawan Kumar", "qty": 100, "avgPrice": 494.96, "sector": "TIER 6"}, {"id": "o01uttj", "name": "SBI", "symbol": "SBIN", "account": "Pawan Kumar", "qty": 1, "avgPrice": 1074.3, "sector": "TIER 6"}, {"id": "pqaaehb", "name": "Aarti Industries", "symbol": "AARTIIND", "account": "Pawan HUF", "qty": 83, "avgPrice": 647, "sector": "TIER 6"}, {"id": "9n8ujbo", "name": "Axis Bank", "symbol": "AXISBANK", "account": "Pawan HUF", "qty": 37, "avgPrice": 1096, "sector": "TIER 6"}, {"id": "r00nset", "name": "Coal India", "symbol": "COALINDIA", "account": "Pawan HUF", "qty": 1, "avgPrice": 402.5, "sector": "TIER 6"}, {"id": "l78nsgg", "name": "PNB Housing Finance", "symbol": "PNBHOUSING", "account": "Pawan HUF", "qty": 152, "avgPrice": 661, "sector": "TIER 6"}, {"id": "v4a4gct", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Pawan HUF", "qty": 1, "avgPrice": 1322, "sector": "TIER 6"}, {"id": "wo3n4nk", "name": "SAIL", "symbol": "SAIL", "account": "Pawan HUF", "qty": 312, "avgPrice": 129.7, "sector": "TIER 6"}, {"id": "ao96fq0", "name": "SBI", "symbol": "SBIN", "account": "Pawan HUF", "qty": 1, "avgPrice": 1074.1, "sector": "TIER 6"}, {"id": "227r5um", "name": "South Indian Bank", "symbol": "SOUTHBANK", "account": "Pawan HUF", "qty": 1850, "avgPrice": 27.25, "sector": "TIER 6"}, {"id": "fpacnpe", "name": "Coal India", "symbol": "COALINDIA", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 402.35, "sector": "TIER 6"}, {"id": "e3zp5ch", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 1320.9, "sector": "TIER 6"}, {"id": "s6aqyju", "name": "SBI", "symbol": "SBIN", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 1074.2, "sector": "TIER 6"}, {"id": "ay3n9pf", "name": "Coal India", "symbol": "COALINDIA", "account": "Deepak HUF", "qty": 1, "avgPrice": 402.7, "sector": "TIER 6"}, {"id": "5wj9b2d", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Deepak HUF", "qty": 1, "avgPrice": 1320.1, "sector": "TIER 6"}, {"id": "pta3z7v", "name": "SBI", "symbol": "SBIN", "account": "Deepak HUF", "qty": 1, "avgPrice": 1073.8, "sector": "TIER 6"}, {"id": "8jm9ik9", "name": "Ganesh Green Bharat", "symbol": "GGBL-SM", "account": "Deepak HUF", "qty": 300, "avgPrice": 425, "sector": "TIER 6"}, {"id": "qxmdnhx", "name": "Monarch Surveyors & Engg", "symbol": "MSECL.BO", "account": "Deepak HUF", "qty": 600, "avgPrice": 273, "sector": "TIER 6"}, {"id": "ksjjr0i", "name": "TCS", "symbol": "TCS", "account": "Deepak HUF", "qty": 31, "avgPrice": 3178.3, "sector": "TIER 6"}], "etfs": [{"id": "sfyed5h", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Deepak", "qty": 1200, "avgPrice": 30.01, "sector": "TIER 2"}, {"id": "9gxcjme", "name": "Metal ETF", "symbol": "METALIETF", "account": "Deepak", "qty": 2106, "avgPrice": 11.85, "sector": "TIER 4"}, {"id": "vlkvnf8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Deepak", "qty": 363, "avgPrice": 82.65, "sector": "TIER 5"}, {"id": "b23fnts", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Deepak", "qty": 248, "avgPrice": 162.71, "sector": "TIER 2"}, {"id": "py8zivg", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Deepak", "qty": 171, "avgPrice": 552.01, "sector": "TIER 3"}, {"id": "vj4856r", "name": "IT ETF", "symbol": "ITBEES", "account": "Deepak", "qty": 2867, "avgPrice": 39.41, "sector": "TIER 3"}, {"id": "rq2wikw", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Deepak", "qty": 1349, "avgPrice": 22.2, "sector": "TIER 3"}, {"id": "il9hmv2", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Deepak", "qty": 169, "avgPrice": 147.85, "sector": "TIER 5"}, {"id": "jfgmcrf", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Deepak", "qty": 502, "avgPrice": 59.55, "sector": "TIER 2"}, {"id": "9dv7b6s", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Deepak", "qty": 240, "avgPrice": 104.11, "sector": "TIER 4"}, {"id": "t2gxrqp", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Deepak", "qty": 560, "avgPrice": 89.24, "sector": "TIER 4"}, {"id": "bsnc6rd", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Deepak", "qty": 76, "avgPrice": 718.59, "sector": "TIER 1"}, {"id": "hxmi6wz", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Deepak", "qty": 256, "avgPrice": 19.54, "sector": "TIER 2"}, {"id": "l029bjn", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Deepak", "qty": 614, "avgPrice": 26.08, "sector": "TIER 4"}, {"id": "ee2z4xu", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Chanchal", "qty": 260, "avgPrice": 96.3, "sector": "TIER 4"}, {"id": "0klzwv8", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Chanchal", "qty": 825, "avgPrice": 30.3, "sector": "TIER 4"}, {"id": "4s0uhg8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Chanchal", "qty": 355, "avgPrice": 102.05, "sector": "TIER 5"}, {"id": "jr2pff0", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Chanchal", "qty": 331, "avgPrice": 169.85, "sector": "TIER 2"}, {"id": "acvuftu", "name": "IT ETF", "symbol": "ITBEES", "account": "Chanchal", "qty": 1008, "avgPrice": 32.71, "sector": "TIER 3"}, {"id": "1dp11np", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Chanchal", "qty": 34, "avgPrice": 740, "sector": "TIER 1"}, {"id": "yhmg5yr", "name": "Metal ETF", "symbol": "METALIETF", "account": "Chanchal", "qty": 1865, "avgPrice": 13.4, "sector": "TIER 4"}, {"id": "lod9ixo", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Chanchal", "qty": 272, "avgPrice": 80.89, "sector": "TIER 4"}, {"id": "qojgvsl", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Chanchal", "qty": 108, "avgPrice": 58.03, "sector": "TIER 2"}, {"id": "08t9o4q", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Chanchal", "qty": 198, "avgPrice": 278, "sector": "TIER 1"}, {"id": "qp5j2uf", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Chanchal", "qty": 871, "avgPrice": 133.81, "sector": "TIER 5"}, {"id": "qqcrw8a", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Pawan Kumar", "qty": 53, "avgPrice": 571.27, "sector": "TIER 3"}, {"id": "197tau6", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Pawan Kumar", "qty": 113, "avgPrice": 86.75, "sector": "TIER 4"}, {"id": "hkq6f8e", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Pawan Kumar", "qty": 184, "avgPrice": 27.25, "sector": "TIER 4"}, {"id": "30atkm2", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Pawan Kumar", "qty": 654, "avgPrice": 82.39, "sector": "TIER 5"}, {"id": "qbq56wv", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Pawan Kumar", "qty": 213, "avgPrice": 164.11, "sector": "TIER 2"}, {"id": "scjb7n5", "name": "IT ETF", "symbol": "ITBEES", "account": "Pawan Kumar", "qty": 1524, "avgPrice": 36.75, "sector": "TIER 3"}, {"id": "cqg9ja2", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Pawan Kumar", "qty": 38, "avgPrice": 661.64, "sector": "TIER 1"}, {"id": "vlk44pc", "name": "Metal ETF", "symbol": "METALIETF", "account": "Pawan Kumar", "qty": 1911, "avgPrice": 13.08, "sector": "TIER 4"}, {"id": "3ulgprj", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Pawan Kumar", "qty": 960, "avgPrice": 21.16, "sector": "TIER 2"}, {"id": "297x3vw", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Pawan Kumar", "qty": 444, "avgPrice": 56.43, "sector": "TIER 2"}, {"id": "558cyci", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Pawan Kumar", "qty": 2438, "avgPrice": 31.1, "sector": "TIER 2"}, {"id": "jcd1674", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Pawan Kumar", "qty": 19, "avgPrice": 268.19, "sector": "TIER 1"}, {"id": "xs0uw7b", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Pawan Kumar", "qty": 948, "avgPrice": 26.38, "sector": "TIER 3"}, {"id": "49bcvzm", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Pawan Kumar", "qty": 1388, "avgPrice": 131.85, "sector": "TIER 5"}, {"id": "ghuq9mv", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Pawan HUF", "qty": 58, "avgPrice": 512.5, "sector": "TIER 3"}, {"id": "haiybhl", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Pawan HUF", "qty": 549, "avgPrice": 100.17, "sector": "TIER 4"}, {"id": "v96vd19", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Pawan HUF", "qty": 1917, "avgPrice": 28.88, "sector": "TIER 4"}, {"id": "m7m3fjr", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Pawan HUF", "qty": 599, "avgPrice": 96.76, "sector": "TIER 5"}, {"id": "hknyxpp", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Pawan HUF", "qty": 187, "avgPrice": 161.2, "sector": "TIER 2"}, {"id": "3r5n45w", "name": "IT ETF", "symbol": "ITBEES", "account": "Pawan HUF", "qty": 3217, "avgPrice": 39.82, "sector": "TIER 3"}, {"id": "906wwb2", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Pawan HUF", "qty": 7, "avgPrice": 690.51, "sector": "TIER 1"}, {"id": "8aq6xla", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Pawan HUF", "qty": 1388, "avgPrice": 21.6, "sector": "TIER 2"}, {"id": "1dqap6q", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Pawan HUF", "qty": 182, "avgPrice": 54.67, "sector": "TIER 2"}, {"id": "gshnigk", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Pawan HUF", "qty": 111, "avgPrice": 273.59, "sector": "TIER 1"}, {"id": "0as5gxg", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Pawan HUF", "qty": 3542, "avgPrice": 23.48, "sector": "TIER 3"}, {"id": "4hti5bo", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Pawan HUF", "qty": 611, "avgPrice": 97.7, "sector": "TIER 5"}, {"id": "pyrcy0b", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Sunita Agarwal", "qty": 44, "avgPrice": 570, "sector": "TIER 3"}, {"id": "wkn3nbe", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Sunita Agarwal", "qty": 530, "avgPrice": 85.11, "sector": "TIER 4"}, {"id": "q15b40n", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Sunita Agarwal", "qty": 2027, "avgPrice": 27.11, "sector": "TIER 4"}, {"id": "v9vayx8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Sunita Agarwal", "qty": 765, "avgPrice": 91.64, "sector": "TIER 5"}, {"id": "2czl4pn", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Sunita Agarwal", "qty": 457, "avgPrice": 164.33, "sector": "TIER 2"}, {"id": "r79r88h", "name": "IT ETF", "symbol": "ITBEES", "account": "Sunita Agarwal", "qty": 3410, "avgPrice": 36.47, "sector": "TIER 3"}, {"id": "xbrgqq6", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Sunita Agarwal", "qty": 21, "avgPrice": 709.21, "sector": "TIER 1"}, {"id": "j7u0knd", "name": "Metal ETF", "symbol": "METALIETF", "account": "Sunita Agarwal", "qty": 1830, "avgPrice": 13.66, "sector": "TIER 4"}, {"id": "kzhd0t6", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Sunita Agarwal", "qty": 461, "avgPrice": 54.13, "sector": "TIER 2"}, {"id": "elwvup8", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Sunita Agarwal", "qty": 998, "avgPrice": 30.07, "sector": "TIER 2"}, {"id": "kmr52ay", "name": "MON100 ETF", "symbol": "MON100", "account": "Sunita Agarwal", "qty": 28, "avgPrice": 178.58, "sector": "TIER 2"}, {"id": "czv42rc", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Sunita Agarwal", "qty": 468, "avgPrice": 170.95, "sector": "TIER 5"}, {"id": "09psnhp", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Deepak HUF", "qty": 778, "avgPrice": 32.13, "sector": "TIER 2"}, {"id": "m8g7sz9", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Deepak HUF", "qty": 159, "avgPrice": 156.92, "sector": "TIER 2"}, {"id": "yygyamp", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Deepak HUF", "qty": 134, "avgPrice": 559.3, "sector": "TIER 3"}, {"id": "m2ez6yu", "name": "IT ETF", "symbol": "ITBEES", "account": "Deepak HUF", "qty": 1327, "avgPrice": 37.71, "sector": "TIER 3"}, {"id": "14bw8ya", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Deepak HUF", "qty": 346, "avgPrice": 144.62, "sector": "TIER 5"}, {"id": "x5mbm7k", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Deepak HUF", "qty": 534, "avgPrice": 93.86, "sector": "TIER 4"}, {"id": "gyij24s", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Deepak HUF", "qty": 272, "avgPrice": 91.89, "sector": "TIER 4"}, {"id": "qje3eey", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Deepak HUF", "qty": 802, "avgPrice": 31.2, "sector": "TIER 4"}, {"id": "jcrnlav", "name": "NIFTYBEES", "symbol": "NIFTYBEES", "account": "Deepak HUF", "qty": 90, "avgPrice": 278.98, "sector": "TIER 1"}], "mf": [{"id": "5mzszei", "name": "Quant Small Cap Fund - Direct Plan", "schemeCode": "120828", "account": "Pawan Kumar", "units": 2701.643, "avgNAV": 185.06, "sector": "TIER 2"}, {"id": "ywhv9sl", "name": "HSBC Small Cap Fund - Direct Plan", "schemeCode": "151130", "account": "Pawan Kumar", "units": 1043.92, "avgNAV": 95.79, "sector": "TIER 2"}, {"id": "oyonka6", "name": "Motilal Oswal Mid Cap Fund - Direct Plan", "schemeCode": "127042", "account": "Pawan HUF", "units": 641.324, "avgNAV": 116.94, "sector": "TIER 2"}, {"id": "1codfpu", "name": "Quant Mid Cap Fund - Direct Plan", "schemeCode": "120841", "account": "Pawan HUF", "units": 2778.295, "avgNAV": 179.96, "sector": "TIER 2"}, {"id": "09ptkpe", "name": "Quant Multicap Fund - Direct Plan", "schemeCode": "120823", "account": "Sunita Agarwal", "units": 630.423, "avgNAV": 634.46, "sector": "TIER 2"}, {"id": "udq4uc3", "name": "Nippon India Large Cap Fund - Direct Plan", "schemeCode": "118632", "account": "Deepak", "units": 1015.707, "avgNAV": 98.45, "sector": "TIER 1"}, {"id": "pa7o9jw", "name": "Canara Robeco Large Cap Fund - Direct Plan", "schemeCode": "118269", "account": "Deepak", "units": 9559.81, "avgNAV": 52.3, "sector": "TIER 1"}], "gold": [], "fd": [], "nsc": [], "land": []};
 
 function lv(){
-  // famport_v3 = fresh key — ignores any old famport_v2 data
+  // famport_v4 = fresh key — forces load from latest backup
   try{
-    const r=localStorage.getItem('famport_v3');
+    const r=localStorage.getItem('famport_v4');
     if(r){
       const d=JSON.parse(r);
       const hasData=['stocks','etfs','mf','gold','fd','nsc','land'].some(k=>d[k]&&d[k].length>0);
@@ -189,89 +189,124 @@ function lv(){
     if(PRELOADED[k])port[k]=JSON.parse(JSON.stringify(PRELOADED[k]));
   });
   // Save as v3
-  try{localStorage.setItem('famport_v3',JSON.stringify(port));}catch(e){}
+  try{localStorage.setItem('famport_v4',JSON.stringify(port));}catch(e){}
 }
 
 // ── Fetch engine ──────────────────────────────────────────
 // batchFetch defined in fetch engine below
-// ── Fetch engine — Stooq primary, Yahoo fallback ─────────
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-async function batchFetch(tasks,batchSize=3,delayMs=400){
-  for(let i=0;i<tasks.length;i+=batchSize){
-    await Promise.allSettled(tasks.slice(i,i+batchSize).map(fn=>fn()));
-    if(i+batchSize<tasks.length)await sleep(delayMs);
+// ── Fetch engine — Vercel API primary, fallbacks for dev mode ──
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const IS_HTTPS = location.protocol === 'https:';
+
+// Detect if running on Vercel (has /api/quote endpoint)
+let VERCEL_API = null;
+async function detectVercel() {
+  if (!IS_HTTPS) return false;
+  try {
+    const r = await fetch('/api/quote?symbols=SBIN', { signal: AbortSignal.timeout(3000) });
+    if (r.ok) { VERCEL_API = '/api/quote'; return true; }
+  } catch(e) {}
+  return false;
+}
+
+async function batchFetch(tasks, batchSize=3, delayMs=400) {
+  for (let i = 0; i < tasks.length; i += batchSize) {
+    await Promise.allSettled(tasks.slice(i, i + batchSize).map(fn => fn()));
+    if (i + batchSize < tasks.length) await sleep(delayMs);
   }
 }
 
-// Yahoo crumb (best-effort — used only as fallback)
-let yahooCrumb=null,crumbTime=0;
-async function ensureCrumb(){
-  if(yahooCrumb&&(Date.now()-crumbTime)<25*60*1000)return;
-  try{
-    const r=await fetch('https://query2.finance.yahoo.com/v1/test/getcrumb',{signal:AbortSignal.timeout(5000)});
-    if(r.ok){const t=(await r.text()).trim();if(t&&t.length>2&&t.length<60){yahooCrumb=t;crumbTime=Date.now();}}
-  }catch(e){}
+// Yahoo crumb (fallback only)
+let yahooCrumb = null, crumbTime = 0;
+async function ensureCrumb() {
+  if (yahooCrumb && (Date.now() - crumbTime) < 25 * 60 * 1000) return;
+  try {
+    const r = await fetch('https://query2.finance.yahoo.com/v1/test/getcrumb', { signal: AbortSignal.timeout(5000) });
+    if (r.ok) { const t = (await r.text()).trim(); if (t && t.length > 2 && t.length < 60) { yahooCrumb = t; crumbTime = Date.now(); } }
+  } catch(e) {}
 }
 
-async function tryFetch(url){
-  try{const r=await fetch(url,{signal:AbortSignal.timeout(10000)});if(r.ok){const t=await r.text();if(t&&t[0]==='{'||t[0]==='[')return JSON.parse(t);}}catch(e){}
-  try{const r=await fetch('https://corsproxy.io/?'+url,{signal:AbortSignal.timeout(10000)});if(r.ok){const t=await r.text();if(t&&t.trim())return JSON.parse(t);}}catch(e){}
-  try{const r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url),{signal:AbortSignal.timeout(10000)});if(r.ok){const t=await r.text();if(t&&t.trim())return JSON.parse(t);}}catch(e){}
+// Direct browser fetch with proxies (used when Vercel API not available)
+async function tryFetch(url) {
+  try { const r = await fetch(url, { signal: AbortSignal.timeout(10000) }); if (r.ok) { const t = await r.text(); if (t && (t[0] === '{' || t[0] === '[')) return JSON.parse(t); } } catch(e) {}
+  const proxies = ['https://corsproxy.io/?', 'https://api.allorigins.win/raw?url='];
+  for (const px of proxies) {
+    try { const r = await fetch(px + encodeURIComponent(url), { signal: AbortSignal.timeout(10000) }); if (!r.ok) continue; const t = await r.text(); if (!t || !t.trim()) continue; return JSON.parse(t); } catch(e) { continue; }
+  }
   return null;
 }
 
-// PRIMARY: Stooq.com — CORS open, no auth needed, Indian stocks supported
-async function fStooq(stooqSym){
-  const now=new Date();
-  const d2=now.toISOString().slice(0,10).replace(/-/g,'');
-  const past=new Date(now-10*24*3600*1000);
-  const d1=past.toISOString().slice(0,10).replace(/-/g,'');
-  try{
-    const url='https://stooq.com/q/d/l/?s='+stooqSym+'&d1='+d1+'&d2='+d2+'&i=d';
-    const r=await fetch(url,{signal:AbortSignal.timeout(12000)});
-    if(!r.ok)return null;
-    const text=await r.text();
-    if(!text||text.toLowerCase().includes('no data'))return null;
-    // Filter out header and empty lines; Stooq returns oldest-first so last line = most recent
-    const lines=text.trim().split('\n').filter(l=>l.trim()&&!l.startsWith('Date'));
-    if(!lines.length)return null;
-    const last=lines[lines.length-1].split(',');
-    const prev=lines.length>=2?lines[lines.length-2].split(','):null;
-    // Stooq daily format: Date,Open,High,Low,Close,Volume
-    const p=parseFloat(last[4]);
-    const pv=prev?parseFloat(prev[4]):p;
-    if(isNaN(p)||p<=0)return null;
-    return{p,pv,c:p-pv,cp:pv>0?((p-pv)/pv)*100:0};
-  }catch(e){return null;}
+// Stooq fallback for individual symbols
+async function fStooq(stooqSym) {
+  const now = new Date();
+  const d2 = now.toISOString().slice(0, 10).replace(/-/g, '');
+  const past = new Date(now - 10 * 24 * 3600 * 1000);
+  const d1 = past.toISOString().slice(0, 10).replace(/-/g, '');
+  try {
+    const url = 'https://stooq.com/q/d/l/?s=' + stooqSym + '&d1=' + d1 + '&d2=' + d2 + '&i=d';
+    const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
+    if (!r.ok) return null;
+    const text = await r.text();
+    if (!text || text.toLowerCase().includes('no data')) return null;
+    const lines = text.trim().split('\n').filter(l => l.trim() && !l.startsWith('Date'));
+    if (!lines.length) return null;
+    const last = lines[lines.length - 1].split(',');
+    const prev = lines.length >= 2 ? lines[lines.length - 2].split(',') : null;
+    const p = parseFloat(last[4]);
+    const pv = prev ? parseFloat(prev[4]) : p;
+    if (isNaN(p) || p <= 0) return null;
+    return { p, pv, c: +(p - pv).toFixed(2), cp: +(pv > 0 ? ((p - pv) / pv) * 100 : 0).toFixed(2) };
+  } catch(e) { return null; }
 }
 
-async function fNSE(sym){
-  if(pc[sym])return pc[sym];
-
-  // Convert to Stooq ticker format
-  let stooqSym;
-  if(sym.endsWith('.BO'))stooqSym=sym.slice(0,-3).toLowerCase()+'.bs';
-  else if(sym.includes('.'))stooqSym=sym.toLowerCase();
-  else stooqSym=sym.toLowerCase()+'.ns';
-
-  // 1. Try Stooq (primary — no CORS issues)
-  const sd=await fStooq(stooqSym);
-  if(sd)return pc[sym]=sd;
-
-  // 2. Fallback: Yahoo Finance v8/chart
-  const ticker=sym.includes('.')?sym:sym+'.NS';
-  const cp=yahooCrumb?'&crumb='+encodeURIComponent(yahooCrumb):'';
-  for(const base of['https://query2.finance.yahoo.com','https://query1.finance.yahoo.com']){
-    try{
-      const j=await tryFetch(base+'/v8/finance/chart/'+ticker+'?interval=1d&range=1d'+cp);
-      const m=j?.chart?.result?.[0]?.meta;
-      if(m?.regularMarketPrice>0){
-        const p=m.regularMarketPrice,pv=m.previousClose||m.chartPreviousClose||p;
-        return pc[sym]={p,pv,c:p-pv,cp:pv>0?((p-pv)/pv)*100:0};
+// Main price fetch — uses Vercel API if available, else browser fallbacks
+async function fNSE(sym) {
+  if (pc[sym]) return pc[sym];
+  // Vercel API (server-side, most reliable)
+  if (VERCEL_API) {
+    try {
+      const r = await fetch(VERCEL_API + '?symbols=' + sym, { signal: AbortSignal.timeout(10000) });
+      if (r.ok) {
+        const j = await r.json();
+        if (j[sym]) return pc[sym] = j[sym];
       }
-    }catch(e){}
+    } catch(e) {}
+  }
+  // Stooq fallback
+  let stooqSym;
+  if (sym.endsWith('.BO')) stooqSym = sym.slice(0, -3).toLowerCase() + '.bs';
+  else if (sym.includes('.')) stooqSym = sym.toLowerCase();
+  else stooqSym = sym.toLowerCase() + '.ns';
+  const sd = await fStooq(stooqSym);
+  if (sd) return pc[sym] = sd;
+  // Yahoo Finance browser fallback
+  const ticker = sym.includes('.') ? sym : sym + '.NS';
+  const cp2 = yahooCrumb ? '&crumb=' + encodeURIComponent(yahooCrumb) : '';
+  for (const base of ['https://query2.finance.yahoo.com', 'https://query1.finance.yahoo.com']) {
+    try {
+      const j = await tryFetch(base + '/v8/finance/chart/' + ticker + '?interval=1d&range=1d' + cp2);
+      const m = j?.chart?.result?.[0]?.meta;
+      if (m?.regularMarketPrice > 0) {
+        const p = m.regularMarketPrice, pv = m.previousClose || m.chartPreviousClose || p;
+        return pc[sym] = { p, pv, c: +(p - pv).toFixed(2), cp: +(pv > 0 ? ((p - pv) / pv) * 100 : 0).toFixed(2) };
+      }
+    } catch(e) {}
   }
   return null;
+}
+
+// Bulk fetch via Vercel API (batches of 50)
+async function fetchBulkVercel(symbols) {
+  if (!VERCEL_API || !symbols.length) return false;
+  try {
+    const chunk = symbols.slice(0, 50).join(',');
+    const r = await fetch(VERCEL_API + '?symbols=' + encodeURIComponent(chunk), { signal: AbortSignal.timeout(15000) });
+    if (!r.ok) return false;
+    const j = await r.json();
+    let got = 0;
+    Object.entries(j).forEach(([sym, data]) => { if (data) { pc[sym] = data; got++; } });
+    return got > 0;
+  } catch(e) { return false; }
 }
 
 async function fMF(code){
@@ -336,32 +371,45 @@ async function refreshAll(){
   const sy=[...new Set([...port.stocks,...port.etfs].map(s=>s.symbol).filter(Boolean))];
   const co=[...new Set(port.mf.map(m=>m.schemeCode).filter(Boolean))];
 
-  // Fetch stocks+ETFs in batches of 3 with 450ms gap — avoids Yahoo rate limiting
-  const total=sy.length+co.length+(port.gold.length?1:0);
-  let done=0;
-  const tick=n=>{done+=n;ic.innerHTML=`<span class="spin">↻</span> ${done}/${total}`;};
+  const total = sy.length + co.length + (port.gold.length ? 1 : 0);
+  let done = 0;
+  const tick = n => { done += n; ic.innerHTML = `<span class="spin">↻</span> ${done}/${total}`; };
 
-  await batchFetch(sy.map(s=>async()=>{await fNSE(s);tick(1);}),3,450);
-
-  // First retry pass — wait 1s then retry failed ones in pairs
-  const fail1=sy.filter(s=>!pc[s]);
-  if(fail1.length){
-    ic.innerHTML=`<span class="spin">↻</span> Retrying ${fail1.length} symbols...`;
-    await sleep(1000);
-    await batchFetch(fail1.map(s=>async()=>fNSE(s)),2,600);
+  // Detect Vercel API on first refresh
+  if (VERCEL_API === null) {
+    ic.innerHTML = '<span class="spin">↻</span> Connecting...';
+    await detectVercel();
   }
 
-  // Second retry — any still failing, try one at a time
-  const fail2=sy.filter(s=>!pc[s]);
-  if(fail2.length){
-    await sleep(800);
-    await batchFetch(fail2.map(s=>async()=>fNSE(s)),1,700);
+  if (VERCEL_API) {
+    // VERCEL MODE: Bulk fetch all symbols in 1-2 requests (server-side, no CORS)
+    ic.innerHTML = '<span class="spin">↻</span> Fetching live prices...';
+    const CHUNK = 50;
+    for (let i = 0; i < sy.length; i += CHUNK) {
+      await fetchBulkVercel(sy.slice(i, i + CHUNK));
+      tick(Math.min(CHUNK, sy.length - i));
+    }
+    // Retry failed ones individually (SME stocks etc.)
+    const fail1 = sy.filter(s => !pc[s]);
+    if (fail1.length) {
+      ic.innerHTML = `<span class="spin">↻</span> Retrying ${fail1.length}...`;
+      await batchFetch(fail1.map(s => async () => fNSE(s)), 3, 300);
+    }
+  } else {
+    // BROWSER MODE: Stooq + Yahoo with fallbacks
+    ic.innerHTML = '<span class="spin">↻</span> Fetching prices...';
+    await batchFetch(sy.map(s => async () => { await fNSE(s); tick(1); }), 3, 450);
+    const fail1 = sy.filter(s => !pc[s]);
+    if (fail1.length) {
+      await sleep(800);
+      await batchFetch(fail1.map(s => async () => fNSE(s)), 2, 500);
+    }
   }
 
-  // Fetch MFs and gold
-  ic.innerHTML=`<span class="spin">↻</span> MF + Gold...`;
-  await batchFetch(co.map(c=>async()=>{await fMF(c);tick(1);}),4,300);
-  if(port.gold.length){await fGold();tick(1);}
+  // MFs and gold (always direct)
+  ic.innerHTML = '<span class="spin">↻</span> MF + Gold...';
+  await batchFetch(co.map(c => async () => { await fMF(c); tick(1); }), 4, 200);
+  if (port.gold.length) { await fGold(); tick(1); }
 
   // Auto-fetch missing sectors in background (small batches, no rush)
   const needSector=[...port.stocks,...port.etfs].filter(s=>!s.sector&&s.symbol);
@@ -377,10 +425,12 @@ async function refreshAll(){
 
   const failed=sy.filter(s=>!pc[s]);
   const allFailed=sy.length>0&&failed.length===sy.length;
-  if(allFailed){document.getElementById('corsbar').classList.add('show');}
-  else if(failed.length){
+  if(allFailed&&!IS_HTTPS){
+    // Only show CORS extension message on file:// (laptop)
+    document.getElementById('corsbar').classList.add('show');
+  }else if(failed.length){
     const wb=document.getElementById('warnbar');
-    wb.textContent='⚠️ No live price for: '+failed.join(', ')+' — may be SME/BSE-only. Enter CMP manually.';
+    wb.textContent='⚠️ No live price for: '+failed.join(', ')+' — SME/unlisted stock. Enter CMP manually.';
     wb.classList.add('show');
   }
   ra();
@@ -998,7 +1048,7 @@ port.mf.forEach(m=>{
     if(name.includes(key)&&m.sector!==tier){m.sector=tier;migrated=true;}
   }
 });
-if(migrated)try{localStorage.setItem('famport_v3',JSON.stringify(port));}catch(e){}rAccRow();ra();
+if(migrated)try{localStorage.setItem('famport_v4',JSON.stringify(port));}catch(e){}rAccRow();ra();
 const hm=port.stocks.length||port.etfs.length||port.mf.length||port.gold.length;
 if(hm)refreshAll();
 
