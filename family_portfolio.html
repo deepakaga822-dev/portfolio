@@ -1,1068 +1,1050 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Family Portfolio Tracker</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f5f7;color:#1a1a2e;font-size:14px}
-.hdr{background:#1a1a2e;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
-.hdr h1{font-size:17px;font-weight:600}.hdr .sub{font-size:11px;color:#aaa;margin-top:2px}
-.hbtn{padding:7px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:inherit;font-weight:500;border:none}
-.hbtn.pri{background:#3b82f6;color:#fff}.hbtn.sec{background:rgba(255,255,255,.12);color:#fff}.hbtn:disabled{opacity:.5}
-.content{max-width:1200px;margin:0 auto;padding:16px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
-.card{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.card .lbl{font-size:11px;color:#888;margin-bottom:4px}.card .val{font-size:20px;font-weight:600}.card .sub{font-size:12px;color:#888;margin-top:2px}
-.accrow{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:12px}
-.apill{padding:5px 13px;border-radius:20px;font-size:12px;cursor:pointer;border:1px solid #ddd;background:#fff;color:#666;white-space:nowrap;font-family:inherit}
-.apill.on{background:#059669;color:#fff;border-color:#059669}
-.tabs{display:flex;border-bottom:2px solid #eee;margin-bottom:14px;overflow-x:auto}
-.tab{padding:9px 13px;font-size:12.5px;cursor:pointer;border:none;background:transparent;color:#888;border-bottom:2px solid transparent;font-family:inherit;white-space:nowrap;margin-bottom:-2px}
-.tab.on{color:#1a1a2e;border-bottom-color:#3b82f6;font-weight:600}
-.sec{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.sech{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.sect{font-size:14px;font-weight:600}.scnt{font-size:11px;color:#888;font-weight:400;margin-left:4px}
-.abtn{padding:5px 10px;border-radius:8px;font-size:11px;cursor:pointer;background:#3b82f6;color:#fff;border:none;font-family:inherit;font-weight:500}
-.scroll{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{font-size:11px;font-weight:600;color:#888;text-align:left;padding:7px 10px;border-bottom:1px solid #f0f0f0;white-space:nowrap}
-td{padding:9px 10px;border-bottom:1px solid #f5f5f5;vertical-align:middle}
-tr:last-child td{border-bottom:none}tr:hover td{background:#fafafa}tr.tot td{background:#f8f9fa;font-weight:600}
-.pos{color:#059669}.neg{color:#dc2626}
-.badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:11px;background:#f0f0f0;color:#666}
-.sbadge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;color:#fff;font-weight:500}
-.ib{background:none;border:none;cursor:pointer;color:#aaa;padding:3px 5px;font-size:15px;border-radius:4px}
-.ib:hover{background:#f0f0f0}.ib.d:hover{color:#dc2626}.ib.e:hover{color:#3b82f6}
-.em{text-align:center;padding:24px 0;color:#aaa}
-.cmp-inp{width:76px;padding:4px 6px;border:1px solid #ddd;border-radius:6px;font-size:12px;font-family:inherit;text-align:right}
-.cmp-inp:focus{outline:none;border-color:#3b82f6}
-.cmp-lbl{font-size:10px;color:#f59e0b;display:block;text-align:center;margin-top:2px}
-.abar{border-radius:8px;padding:10px 14px;font-size:12px;margin-bottom:12px;display:none;line-height:1.5}
-.abar.show{display:block}
-.abar.warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
-.abar.info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
-.abar a{color:inherit;font-weight:600}
-/* sector progress bar */
-.sbar-wrap{background:#f0f0f0;border-radius:4px;height:6px;margin-top:4px}
-.sbar-fill{height:6px;border-radius:4px}
-/* charts grid */
-.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:12px}
-/* modal */
-.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding:20px 12px;overflow-y:auto}
-.ov.show{display:flex}
-.mbox{background:#fff;border-radius:16px;padding:20px;width:100%;max-width:420px;margin:auto}
-.mhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.mttl{font-size:16px;font-weight:600}.mcls{background:none;border:none;font-size:22px;cursor:pointer;color:#aaa;line-height:1}
-.fg{margin-bottom:12px}
-label{font-size:12px;color:#666;display:block;margin-bottom:4px;font-weight:500}
-input,select{width:100%;padding:9px 11px;border:1px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit}
-input:focus,select:focus{outline:none;border-color:#3b82f6}
-.tip{font-size:11px;color:#888;margin-top:-8px;margin-bottom:12px;line-height:1.5}
-.mbtns{display:flex;gap:10px;margin-top:16px}
-.mbtn{flex:1;padding:10px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;font-weight:500;border:none}
-.mbtn.p{background:#3b82f6;color:#fff}.mbtn.s{background:#f0f0f0;color:#555}
-.spin{display:inline-block;animation:sp 1s linear infinite}
-@keyframes sp{100%{transform:rotate(360deg)}}
-</style>
-</head>
-<body>
-<div class="hdr">
-  <div><h1>Family Portfolio</h1><div class="sub" id="ulbl">Click Refresh to load live prices</div></div>
-  <div style="display:flex;gap:8px;align-items:center">
-    <button class="hbtn pri" onclick="openAdd('stocks')">+ Add holding</button>
-    <button class="hbtn sec" onclick="exportBackup()" title="Save all data to JSON file">💾 Backup</button>
-    <label class="hbtn sec" style="cursor:pointer;margin:0" title="Restore data from JSON file">📂 Restore<input type="file" accept=".json" onchange="importBackup(event)" style="display:none"></label>
-    <button class="hbtn sec" onclick="refreshAll()" id="rbtn"><span id="ric">↻ Refresh</span></button>
-  </div>
-</div>
-
-<div class="content">
-  <div id="corsbar" class="abar info">
-    💡 <strong>Live prices blocked.</strong> Install
-    <a href="https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf" target="_blank">Allow CORS extension</a>
-    → Enable → Refresh. Until then enter CMP manually below.
-  </div>
-  <div id="warnbar" class="abar warn"></div>
-
-  <div class="cards">
-    <div class="card"><div class="lbl">Total invested</div><div class="val" id="si">₹0</div></div>
-    <div class="card"><div class="lbl">Current value</div><div class="val" id="sc" style="color:#3b82f6">₹0</div></div>
-    <div class="card"><div class="lbl">Today's change</div><div class="val" id="st">₹0</div><div class="sub" id="stp">0.00%</div></div>
-    <div class="card"><div class="lbl">Total P&L</div><div class="val" id="sp">₹0</div><div class="sub" id="spp">0.00%</div></div>
-  </div>
-
-  <div class="accrow" id="accrow"></div>
-
-  <div class="tabs">
-    <button class="tab on" onclick="sw('all')" data-a="all">All assets</button>
-    <button class="tab" onclick="sw('stocks')" data-a="stocks">Stocks</button>
-    <button class="tab" onclick="sw('etfs')" data-a="etfs">ETFs</button>
-    <button class="tab" onclick="sw('mf')" data-a="mf">MF</button>
-    <button class="tab" onclick="sw('gold')" data-a="gold">Gold</button>
-    <button class="tab" onclick="sw('fd')" data-a="fd">FD</button>
-    <button class="tab" onclick="sw('nsc')" data-a="nsc">NSC</button>
-    <button class="tab" onclick="sw('land')" data-a="land">Land</button>
-    <button class="tab" onclick="sw('sectors')" data-a="sectors">Tiers</button>
-    <button class="tab" onclick="sw('exposure')" data-a="exposure">Exposure</button>
-    <button class="tab" onclick="sw('charts')" data-a="charts">Charts</button>
-  </div>
-
-  <div id="ta"></div>
-  <div id="seca" style="display:none"></div>
-  <div id="expa" style="display:none"></div>
-  <div id="ca" style="display:none">
-    <div class="charts-grid">
-      <div class="sec"><div style="font-size:13px;font-weight:600;margin-bottom:10px">Asset allocation</div><canvas id="piec" width="260" height="190"></canvas><div id="pleg" style="display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;font-size:11px;color:#888"></div></div>
-      <div class="sec"><div style="font-size:13px;font-weight:600;margin-bottom:10px">Sector allocation</div><canvas id="sectorc" width="260" height="190"></canvas><div id="sectorleg" style="display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;font-size:11px;color:#888"></div></div>
-      <div class="sec"><div style="font-size:13px;font-weight:600;margin-bottom:10px">Per-person value</div><canvas id="barc" width="260" height="190"></canvas></div>
-    </div>
-    <div class="sec"><div style="font-size:13px;font-weight:600;margin-bottom:12px">Account-wise P&L summary</div><div class="scroll"><table id="atbl"></table></div></div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="ov" id="ov">
-  <div class="mbox">
-    <div class="mhdr"><div class="mttl" id="mt"></div><button class="mcls" onclick="cm()">×</button></div>
-    <div id="mtr" class="fg"><label>Asset type</label>
-      <select id="mat" onchange="rff()">
-        <option value="stocks">Stock</option><option value="etfs">ETF</option>
-        <option value="mf">Mutual fund (MF)</option><option value="gold">Gold — physical</option>
-        <option value="fd">Fixed deposit (FD)</option><option value="nsc">NSC</option>
-        <option value="land">Land / property</option>
-      </select>
-    </div>
-    <div id="mfields"></div>
-    <div class="mbtns"><button class="mbtn s" onclick="cm()">Cancel</button><button class="mbtn p" onclick="saveItem()">Save</button></div>
-  </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script>
-const ACCS=['Deepak','Chanchal','Deepak HUF','Pawan Kumar','Sunita Agarwal','Pawan HUF'];
-const ACOL=['#3b82f6','#059669','#d97706','#7c3aed','#dc2626','#0891b2'];
-const AXLBL=['Deepak','Chanchal','D.HUF','Pawan','Sunita','P.HUF'];
-const AMAP={'Stocks':'#3b82f6','ETFs':'#06b6d4','Mutual funds':'#059669','Gold':'#d97706','FD':'#0891b2','NSC':'#7c3aed','Land':'#dc2626'};
-
-// 20 distinct sector colours
-const SCOLS=['#3b82f6','#059669','#d97706','#7c3aed','#dc2626','#0891b2','#db2777','#65a30d',
-             '#ea580c','#0d9488','#7c3aed','#b45309','#4f46e5','#0284c7','#16a34a',
-             '#9333ea','#c2410c','#0e7490','#15803d','#6d28d9'];
-
-let port={stocks:[],etfs:[],mf:[],gold:[],fd:[],nsc:[],land:[]};
-let pc={},mfc={},gc=null,manualCMP={};
-let fA='all',fS='all',em=null,pCh=null,bCh=null,sCh=null;
-
-const uid=()=>Math.random().toString(36).slice(2,9);
-const inr=n=>'₹'+Math.abs(Math.round(n)).toLocaleString('en-IN');
-const inrS=n=>(n<0?'-':'')+inr(n);
-const pct=n=>(n>=0?'+':'')+n.toFixed(2)+'%';
-const clr=n=>n>=0?'#059669':'#dc2626';
-const cls=n=>n>=0?'pos':'neg';
-
-// ── Storage ───────────────────────────────────────────────
-function sv(){
-  try{localStorage.setItem('famport_v4',JSON.stringify(port));}catch(e){}
-  try{localStorage.setItem('famport_mcmp',JSON.stringify(manualCMP));}catch(e){}
-}
-// Pre-loaded data (reconstructed from screenshots — Aug 2026)
-const PRELOADED={"stocks": [{"id": "llze978", "name": "Aeroflex Industries", "symbol": "AEROFLEX", "account": "Chanchal", "qty": 186, "avgPrice": 403.74, "sector": "TIER 6"}, {"id": "8mtmvxb", "name": "CDSL", "symbol": "CDSL", "account": "Chanchal", "qty": 70, "avgPrice": 1440.6, "sector": "TIER 6"}, {"id": "eagwrg9", "name": "Coal India", "symbol": "COALINDIA", "account": "Chanchal", "qty": 1, "avgPrice": 402.6, "sector": "TIER 6"}, {"id": "y5tm0bz", "name": "Inventurus Precision", "symbol": "INVPRECQ", "account": "Chanchal", "qty": 119, "avgPrice": 629.99, "sector": "TIER 6"}, {"id": "xqpur74", "name": "Jaro Education", "symbol": "JARO", "account": "Chanchal", "qty": 131, "avgPrice": 763.59, "sector": "TIER 6"}, {"id": "71pc6r8", "name": "Rajesh Power Services", "symbol": "RAJESH", "account": "Chanchal", "qty": 100, "avgPrice": 883, "sector": "TIER 6"}, {"id": "3h8jdam", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Chanchal", "qty": 1, "avgPrice": 1320.4, "sector": "TIER 6"}, {"id": "h0xdsrj", "name": "SBI", "symbol": "SBIN", "account": "Chanchal", "qty": 1, "avgPrice": 1073.2, "sector": "TIER 6"}, {"id": "gnzowgm", "name": "Vikran Engineering", "symbol": "VIKRAN", "account": "Chanchal", "qty": 1560, "avgPrice": 96.24, "sector": "TIER 6"}, {"id": "0eqxbky", "name": "WAAREEENER", "symbol": "WAAREEENER", "account": "Chanchal", "qty": 62, "avgPrice": 3230, "sector": "TIER 6"}, {"id": "6hy2sdj", "name": "Coal India", "symbol": "COALINDIA", "account": "Pawan Kumar", "qty": 1, "avgPrice": 402.45, "sector": "TIER 6"}, {"id": "bxcvzp6", "name": "HDFC Bank", "symbol": "HDFCBANK", "account": "Pawan Kumar", "qty": 144, "avgPrice": 705.23, "sector": "TIER 6"}, {"id": "73crkq5", "name": "Hindustan Zinc", "symbol": "HINDZINC", "account": "Pawan Kumar", "qty": 202, "avgPrice": 294.94, "sector": "TIER 6"}, {"id": "wimur8v", "name": "Lloyd's Engineering", "symbol": "LLOYDSENGG", "account": "Pawan Kumar", "qty": 1170, "avgPrice": 64.17, "sector": "TIER 6"}, {"id": "gmtb0nb", "name": "Lloyd's Enterprises", "symbol": "LLOYDSENT", "account": "Pawan Kumar", "qty": 1027, "avgPrice": 72.85, "sector": "TIER 6"}, {"id": "cctgbcw", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Pawan Kumar", "qty": 1, "avgPrice": 1320.5, "sector": "TIER 6"}, {"id": "w8nvvmw", "name": "Sanathan Textiles", "symbol": "SANATHAN", "account": "Pawan Kumar", "qty": 100, "avgPrice": 494.96, "sector": "TIER 6"}, {"id": "o01uttj", "name": "SBI", "symbol": "SBIN", "account": "Pawan Kumar", "qty": 1, "avgPrice": 1074.3, "sector": "TIER 6"}, {"id": "pqaaehb", "name": "Aarti Industries", "symbol": "AARTIIND", "account": "Pawan HUF", "qty": 83, "avgPrice": 647, "sector": "TIER 6"}, {"id": "9n8ujbo", "name": "Axis Bank", "symbol": "AXISBANK", "account": "Pawan HUF", "qty": 37, "avgPrice": 1096, "sector": "TIER 6"}, {"id": "r00nset", "name": "Coal India", "symbol": "COALINDIA", "account": "Pawan HUF", "qty": 1, "avgPrice": 402.5, "sector": "TIER 6"}, {"id": "l78nsgg", "name": "PNB Housing Finance", "symbol": "PNBHOUSING", "account": "Pawan HUF", "qty": 152, "avgPrice": 661, "sector": "TIER 6"}, {"id": "v4a4gct", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Pawan HUF", "qty": 1, "avgPrice": 1322, "sector": "TIER 6"}, {"id": "wo3n4nk", "name": "SAIL", "symbol": "SAIL", "account": "Pawan HUF", "qty": 312, "avgPrice": 129.7, "sector": "TIER 6"}, {"id": "ao96fq0", "name": "SBI", "symbol": "SBIN", "account": "Pawan HUF", "qty": 1, "avgPrice": 1074.1, "sector": "TIER 6"}, {"id": "227r5um", "name": "South Indian Bank", "symbol": "SOUTHBANK", "account": "Pawan HUF", "qty": 1850, "avgPrice": 27.25, "sector": "TIER 6"}, {"id": "fpacnpe", "name": "Coal India", "symbol": "COALINDIA", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 402.35, "sector": "TIER 6"}, {"id": "e3zp5ch", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 1320.9, "sector": "TIER 6"}, {"id": "s6aqyju", "name": "SBI", "symbol": "SBIN", "account": "Sunita Agarwal", "qty": 1, "avgPrice": 1074.2, "sector": "TIER 6"}, {"id": "ay3n9pf", "name": "Coal India", "symbol": "COALINDIA", "account": "Deepak HUF", "qty": 1, "avgPrice": 402.7, "sector": "TIER 6"}, {"id": "5wj9b2d", "name": "Reliance Industries", "symbol": "RELIANCE", "account": "Deepak HUF", "qty": 1, "avgPrice": 1320.1, "sector": "TIER 6"}, {"id": "pta3z7v", "name": "SBI", "symbol": "SBIN", "account": "Deepak HUF", "qty": 1, "avgPrice": 1073.8, "sector": "TIER 6"}, {"id": "8jm9ik9", "name": "Ganesh Green Bharat", "symbol": "GGBL-SM", "account": "Deepak HUF", "qty": 300, "avgPrice": 425, "sector": "TIER 6"}, {"id": "qxmdnhx", "name": "Monarch Surveyors & Engg", "symbol": "MSECL.BO", "account": "Deepak HUF", "qty": 600, "avgPrice": 273, "sector": "TIER 6"}, {"id": "ksjjr0i", "name": "TCS", "symbol": "TCS", "account": "Deepak HUF", "qty": 31, "avgPrice": 3178.3, "sector": "TIER 6"}], "etfs": [{"id": "sfyed5h", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Deepak", "qty": 1200, "avgPrice": 30.01, "sector": "TIER 2"}, {"id": "9gxcjme", "name": "Metal ETF", "symbol": "METALIETF", "account": "Deepak", "qty": 2106, "avgPrice": 11.85, "sector": "TIER 4"}, {"id": "vlkvnf8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Deepak", "qty": 363, "avgPrice": 82.65, "sector": "TIER 5"}, {"id": "b23fnts", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Deepak", "qty": 248, "avgPrice": 162.71, "sector": "TIER 2"}, {"id": "py8zivg", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Deepak", "qty": 171, "avgPrice": 552.01, "sector": "TIER 3"}, {"id": "vj4856r", "name": "IT ETF", "symbol": "ITBEES", "account": "Deepak", "qty": 2867, "avgPrice": 39.41, "sector": "TIER 3"}, {"id": "rq2wikw", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Deepak", "qty": 1349, "avgPrice": 22.2, "sector": "TIER 3"}, {"id": "il9hmv2", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Deepak", "qty": 169, "avgPrice": 147.85, "sector": "TIER 5"}, {"id": "jfgmcrf", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Deepak", "qty": 502, "avgPrice": 59.55, "sector": "TIER 2"}, {"id": "9dv7b6s", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Deepak", "qty": 240, "avgPrice": 104.11, "sector": "TIER 4"}, {"id": "t2gxrqp", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Deepak", "qty": 560, "avgPrice": 89.24, "sector": "TIER 4"}, {"id": "bsnc6rd", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Deepak", "qty": 76, "avgPrice": 718.59, "sector": "TIER 1"}, {"id": "hxmi6wz", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Deepak", "qty": 256, "avgPrice": 19.54, "sector": "TIER 2"}, {"id": "l029bjn", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Deepak", "qty": 614, "avgPrice": 26.08, "sector": "TIER 4"}, {"id": "ee2z4xu", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Chanchal", "qty": 260, "avgPrice": 96.3, "sector": "TIER 4"}, {"id": "0klzwv8", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Chanchal", "qty": 825, "avgPrice": 30.3, "sector": "TIER 4"}, {"id": "4s0uhg8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Chanchal", "qty": 355, "avgPrice": 102.05, "sector": "TIER 5"}, {"id": "jr2pff0", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Chanchal", "qty": 331, "avgPrice": 169.85, "sector": "TIER 2"}, {"id": "acvuftu", "name": "IT ETF", "symbol": "ITBEES", "account": "Chanchal", "qty": 1008, "avgPrice": 32.71, "sector": "TIER 3"}, {"id": "1dp11np", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Chanchal", "qty": 34, "avgPrice": 740, "sector": "TIER 1"}, {"id": "yhmg5yr", "name": "Metal ETF", "symbol": "METALIETF", "account": "Chanchal", "qty": 1865, "avgPrice": 13.4, "sector": "TIER 4"}, {"id": "lod9ixo", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Chanchal", "qty": 272, "avgPrice": 80.89, "sector": "TIER 4"}, {"id": "qojgvsl", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Chanchal", "qty": 108, "avgPrice": 58.03, "sector": "TIER 2"}, {"id": "08t9o4q", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Chanchal", "qty": 198, "avgPrice": 278, "sector": "TIER 1"}, {"id": "qp5j2uf", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Chanchal", "qty": 871, "avgPrice": 133.81, "sector": "TIER 5"}, {"id": "qqcrw8a", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Pawan Kumar", "qty": 53, "avgPrice": 571.27, "sector": "TIER 3"}, {"id": "197tau6", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Pawan Kumar", "qty": 113, "avgPrice": 86.75, "sector": "TIER 4"}, {"id": "hkq6f8e", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Pawan Kumar", "qty": 184, "avgPrice": 27.25, "sector": "TIER 4"}, {"id": "30atkm2", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Pawan Kumar", "qty": 654, "avgPrice": 82.39, "sector": "TIER 5"}, {"id": "qbq56wv", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Pawan Kumar", "qty": 213, "avgPrice": 164.11, "sector": "TIER 2"}, {"id": "scjb7n5", "name": "IT ETF", "symbol": "ITBEES", "account": "Pawan Kumar", "qty": 1524, "avgPrice": 36.75, "sector": "TIER 3"}, {"id": "cqg9ja2", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Pawan Kumar", "qty": 38, "avgPrice": 661.64, "sector": "TIER 1"}, {"id": "vlk44pc", "name": "Metal ETF", "symbol": "METALIETF", "account": "Pawan Kumar", "qty": 1911, "avgPrice": 13.08, "sector": "TIER 4"}, {"id": "3ulgprj", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Pawan Kumar", "qty": 960, "avgPrice": 21.16, "sector": "TIER 2"}, {"id": "297x3vw", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Pawan Kumar", "qty": 444, "avgPrice": 56.43, "sector": "TIER 2"}, {"id": "558cyci", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Pawan Kumar", "qty": 2438, "avgPrice": 31.1, "sector": "TIER 2"}, {"id": "jcd1674", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Pawan Kumar", "qty": 19, "avgPrice": 268.19, "sector": "TIER 1"}, {"id": "xs0uw7b", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Pawan Kumar", "qty": 948, "avgPrice": 26.38, "sector": "TIER 3"}, {"id": "49bcvzm", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Pawan Kumar", "qty": 1388, "avgPrice": 131.85, "sector": "TIER 5"}, {"id": "ghuq9mv", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Pawan HUF", "qty": 58, "avgPrice": 512.5, "sector": "TIER 3"}, {"id": "haiybhl", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Pawan HUF", "qty": 549, "avgPrice": 100.17, "sector": "TIER 4"}, {"id": "v96vd19", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Pawan HUF", "qty": 1917, "avgPrice": 28.88, "sector": "TIER 4"}, {"id": "m7m3fjr", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Pawan HUF", "qty": 599, "avgPrice": 96.76, "sector": "TIER 5"}, {"id": "hknyxpp", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Pawan HUF", "qty": 187, "avgPrice": 161.2, "sector": "TIER 2"}, {"id": "3r5n45w", "name": "IT ETF", "symbol": "ITBEES", "account": "Pawan HUF", "qty": 3217, "avgPrice": 39.82, "sector": "TIER 3"}, {"id": "906wwb2", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Pawan HUF", "qty": 7, "avgPrice": 690.51, "sector": "TIER 1"}, {"id": "8aq6xla", "name": "Midcap ETF", "symbol": "MIDCAPETF", "account": "Pawan HUF", "qty": 1388, "avgPrice": 21.6, "sector": "TIER 2"}, {"id": "1dqap6q", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Pawan HUF", "qty": 182, "avgPrice": 54.67, "sector": "TIER 2"}, {"id": "gshnigk", "name": "Nifty Bees", "symbol": "NIFTYBEES", "account": "Pawan HUF", "qty": 111, "avgPrice": 273.59, "sector": "TIER 1"}, {"id": "0as5gxg", "name": "Pharma ETF", "symbol": "PHARMABEES", "account": "Pawan HUF", "qty": 3542, "avgPrice": 23.48, "sector": "TIER 3"}, {"id": "4hti5bo", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Pawan HUF", "qty": 611, "avgPrice": 97.7, "sector": "TIER 5"}, {"id": "pyrcy0b", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Sunita Agarwal", "qty": 44, "avgPrice": 570, "sector": "TIER 3"}, {"id": "wkn3nbe", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Sunita Agarwal", "qty": 530, "avgPrice": 85.11, "sector": "TIER 4"}, {"id": "q15b40n", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Sunita Agarwal", "qty": 2027, "avgPrice": 27.11, "sector": "TIER 4"}, {"id": "v9vayx8", "name": "Gold ETF", "symbol": "GOLDIETF", "account": "Sunita Agarwal", "qty": 765, "avgPrice": 91.64, "sector": "TIER 5"}, {"id": "2czl4pn", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Sunita Agarwal", "qty": 457, "avgPrice": 164.33, "sector": "TIER 2"}, {"id": "r79r88h", "name": "IT ETF", "symbol": "ITBEES", "account": "Sunita Agarwal", "qty": 3410, "avgPrice": 36.47, "sector": "TIER 3"}, {"id": "xbrgqq6", "name": "Junior Bees", "symbol": "JUNIORBEES", "account": "Sunita Agarwal", "qty": 21, "avgPrice": 709.21, "sector": "TIER 1"}, {"id": "j7u0knd", "name": "Metal ETF", "symbol": "METALIETF", "account": "Sunita Agarwal", "qty": 1830, "avgPrice": 13.66, "sector": "TIER 4"}, {"id": "kzhd0t6", "name": "Momentum 100 ETF", "symbol": "MOM100", "account": "Sunita Agarwal", "qty": 461, "avgPrice": 54.13, "sector": "TIER 2"}, {"id": "elwvup8", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Sunita Agarwal", "qty": 998, "avgPrice": 30.07, "sector": "TIER 2"}, {"id": "kmr52ay", "name": "MON100 ETF", "symbol": "MON100", "account": "Sunita Agarwal", "qty": 28, "avgPrice": 178.58, "sector": "TIER 2"}, {"id": "czv42rc", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Sunita Agarwal", "qty": 468, "avgPrice": 170.95, "sector": "TIER 5"}, {"id": "09psnhp", "name": "Momentum 30 ETF", "symbol": "MOM30IETF", "account": "Deepak HUF", "qty": 778, "avgPrice": 32.13, "sector": "TIER 2"}, {"id": "m8g7sz9", "name": "HDFC Small & Midcap 250", "symbol": "HDFCSML250", "account": "Deepak HUF", "qty": 159, "avgPrice": 156.92, "sector": "TIER 2"}, {"id": "yygyamp", "name": "Bank ETF", "symbol": "BANKBEES", "account": "Deepak HUF", "qty": 134, "avgPrice": 559.3, "sector": "TIER 3"}, {"id": "m2ez6yu", "name": "IT ETF", "symbol": "ITBEES", "account": "Deepak HUF", "qty": 1327, "avgPrice": 37.71, "sector": "TIER 3"}, {"id": "14bw8ya", "name": "Silver ETF", "symbol": "SILVERBEES", "account": "Deepak HUF", "qty": 346, "avgPrice": 144.62, "sector": "TIER 5"}, {"id": "x5mbm7k", "name": "Defence ETF", "symbol": "MODEFENCE", "account": "Deepak HUF", "qty": 534, "avgPrice": 93.86, "sector": "TIER 4"}, {"id": "gyij24s", "name": "CPSE ETF", "symbol": "CPSEETF", "account": "Deepak HUF", "qty": 272, "avgPrice": 91.89, "sector": "TIER 4"}, {"id": "qje3eey", "name": "EV India ETF", "symbol": "EVINDIA", "account": "Deepak HUF", "qty": 802, "avgPrice": 31.2, "sector": "TIER 4"}, {"id": "jcrnlav", "name": "NIFTYBEES", "symbol": "NIFTYBEES", "account": "Deepak HUF", "qty": 90, "avgPrice": 278.98, "sector": "TIER 1"}], "mf": [{"id": "5mzszei", "name": "Quant Small Cap Fund - Direct Plan", "schemeCode": "120828", "account": "Pawan Kumar", "units": 2701.643, "avgNAV": 185.06, "sector": "TIER 2"}, {"id": "ywhv9sl", "name": "HSBC Small Cap Fund - Direct Plan", "schemeCode": "151130", "account": "Pawan Kumar", "units": 1043.92, "avgNAV": 95.79, "sector": "TIER 2"}, {"id": "oyonka6", "name": "Motilal Oswal Mid Cap Fund - Direct Plan", "schemeCode": "127042", "account": "Pawan HUF", "units": 641.324, "avgNAV": 116.94, "sector": "TIER 2"}, {"id": "1codfpu", "name": "Quant Mid Cap Fund - Direct Plan", "schemeCode": "120841", "account": "Pawan HUF", "units": 2778.295, "avgNAV": 179.96, "sector": "TIER 2"}, {"id": "09ptkpe", "name": "Quant Multicap Fund - Direct Plan", "schemeCode": "120823", "account": "Sunita Agarwal", "units": 630.423, "avgNAV": 634.46, "sector": "TIER 2"}, {"id": "udq4uc3", "name": "Nippon India Large Cap Fund - Direct Plan", "schemeCode": "118632", "account": "Deepak", "units": 1015.707, "avgNAV": 98.45, "sector": "TIER 1"}, {"id": "pa7o9jw", "name": "Canara Robeco Large Cap Fund - Direct Plan", "schemeCode": "118269", "account": "Deepak", "units": 9559.81, "avgNAV": 52.3, "sector": "TIER 1"}], "gold": [], "fd": [], "nsc": [], "land": []};
-
-function lv(){
-  // famport_v4 = fresh key — forces load from latest backup
-  try{
-    const r=localStorage.getItem('famport_v4');
-    if(r){
-      const d=JSON.parse(r);
-      const hasData=['stocks','etfs','mf','gold','fd','nsc','land'].some(k=>d[k]&&d[k].length>0);
-      if(hasData){
-        ['stocks','etfs','mf','gold','fd','nsc','land'].forEach(k=>{if(d[k])port[k]=d[k];});
-        try{const m=localStorage.getItem('famport_mcmp');if(m)manualCMP=JSON.parse(m);}catch(e){}
-        return;
+{
+  "port": {
+    "stocks": [
+      {
+        "id": "llze978",
+        "name": "Aeroflex Industries",
+        "symbol": "AEROFLEX",
+        "account": "Chanchal",
+        "qty": 186,
+        "avgPrice": 403.74,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "8mtmvxb",
+        "name": "CDSL",
+        "symbol": "CDSL",
+        "account": "Chanchal",
+        "qty": 70,
+        "avgPrice": 1440.6,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "eagwrg9",
+        "name": "Coal India",
+        "symbol": "COALINDIA",
+        "account": "Chanchal",
+        "qty": 1,
+        "avgPrice": 402.6,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "y5tm0bz",
+        "name": "Inventurus Precision",
+        "symbol": "INVPRECQ",
+        "account": "Chanchal",
+        "qty": 119,
+        "avgPrice": 629.99,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "xqpur74",
+        "name": "Jaro Education",
+        "symbol": "JARO",
+        "account": "Chanchal",
+        "qty": 131,
+        "avgPrice": 763.59,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "71pc6r8",
+        "name": "Rajesh Power Services",
+        "symbol": "RAJESH",
+        "account": "Chanchal",
+        "qty": 100,
+        "avgPrice": 883,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "3h8jdam",
+        "name": "Reliance Industries",
+        "symbol": "RELIANCE",
+        "account": "Chanchal",
+        "qty": 1,
+        "avgPrice": 1320.4,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "h0xdsrj",
+        "name": "SBI",
+        "symbol": "SBIN",
+        "account": "Chanchal",
+        "qty": 1,
+        "avgPrice": 1073.2,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "gnzowgm",
+        "name": "Vikran Engineering",
+        "symbol": "VIKRAN",
+        "account": "Chanchal",
+        "qty": 1560,
+        "avgPrice": 96.24,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "0eqxbky",
+        "name": "WAAREEENER",
+        "symbol": "WAAREEENER",
+        "account": "Chanchal",
+        "qty": 62,
+        "avgPrice": 3230,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "6hy2sdj",
+        "name": "Coal India",
+        "symbol": "COALINDIA",
+        "account": "Pawan Kumar",
+        "qty": 1,
+        "avgPrice": 402.45,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "bxcvzp6",
+        "name": "HDFC Bank",
+        "symbol": "HDFCBANK",
+        "account": "Pawan Kumar",
+        "qty": 144,
+        "avgPrice": 705.23,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "73crkq5",
+        "name": "Hindustan Zinc",
+        "symbol": "HINDZINC",
+        "account": "Pawan Kumar",
+        "qty": 202,
+        "avgPrice": 294.94,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "wimur8v",
+        "name": "Lloyd's Engineering",
+        "symbol": "LLOYDSENGG",
+        "account": "Pawan Kumar",
+        "qty": 1170,
+        "avgPrice": 64.17,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "gmtb0nb",
+        "name": "Lloyd's Enterprises",
+        "symbol": "LLOYDSENT",
+        "account": "Pawan Kumar",
+        "qty": 1027,
+        "avgPrice": 72.85,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "cctgbcw",
+        "name": "Reliance Industries",
+        "symbol": "RELIANCE",
+        "account": "Pawan Kumar",
+        "qty": 1,
+        "avgPrice": 1320.5,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "w8nvvmw",
+        "name": "Sanathan Textiles",
+        "symbol": "SANATHAN",
+        "account": "Pawan Kumar",
+        "qty": 100,
+        "avgPrice": 494.96,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "o01uttj",
+        "name": "SBI",
+        "symbol": "SBIN",
+        "account": "Pawan Kumar",
+        "qty": 1,
+        "avgPrice": 1074.3,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "pqaaehb",
+        "name": "Aarti Industries",
+        "symbol": "AARTIIND",
+        "account": "Pawan HUF",
+        "qty": 83,
+        "avgPrice": 647,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "9n8ujbo",
+        "name": "Axis Bank",
+        "symbol": "AXISBANK",
+        "account": "Pawan HUF",
+        "qty": 37,
+        "avgPrice": 1096,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "r00nset",
+        "name": "Coal India",
+        "symbol": "COALINDIA",
+        "account": "Pawan HUF",
+        "qty": 1,
+        "avgPrice": 402.5,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "l78nsgg",
+        "name": "PNB Housing Finance",
+        "symbol": "PNBHOUSING",
+        "account": "Pawan HUF",
+        "qty": 152,
+        "avgPrice": 661,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "v4a4gct",
+        "name": "Reliance Industries",
+        "symbol": "RELIANCE",
+        "account": "Pawan HUF",
+        "qty": 1,
+        "avgPrice": 1322,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "wo3n4nk",
+        "name": "SAIL",
+        "symbol": "SAIL",
+        "account": "Pawan HUF",
+        "qty": 312,
+        "avgPrice": 129.7,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "ao96fq0",
+        "name": "SBI",
+        "symbol": "SBIN",
+        "account": "Pawan HUF",
+        "qty": 1,
+        "avgPrice": 1074.1,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "227r5um",
+        "name": "South Indian Bank",
+        "symbol": "SOUTHBANK",
+        "account": "Pawan HUF",
+        "qty": 1850,
+        "avgPrice": 27.25,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "fpacnpe",
+        "name": "Coal India",
+        "symbol": "COALINDIA",
+        "account": "Sunita Agarwal",
+        "qty": 1,
+        "avgPrice": 402.35,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "e3zp5ch",
+        "name": "Reliance Industries",
+        "symbol": "RELIANCE",
+        "account": "Sunita Agarwal",
+        "qty": 1,
+        "avgPrice": 1320.9,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "s6aqyju",
+        "name": "SBI",
+        "symbol": "SBIN",
+        "account": "Sunita Agarwal",
+        "qty": 1,
+        "avgPrice": 1074.2,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "ay3n9pf",
+        "name": "Coal India",
+        "symbol": "COALINDIA",
+        "account": "Deepak HUF",
+        "qty": 1,
+        "avgPrice": 402.7,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "5wj9b2d",
+        "name": "Reliance Industries",
+        "symbol": "RELIANCE",
+        "account": "Deepak HUF",
+        "qty": 1,
+        "avgPrice": 1320.1,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "pta3z7v",
+        "name": "SBI",
+        "symbol": "SBIN",
+        "account": "Deepak HUF",
+        "qty": 1,
+        "avgPrice": 1073.8,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "8jm9ik9",
+        "name": "Ganesh Green Bharat",
+        "symbol": "GGBL-SM",
+        "account": "Deepak HUF",
+        "qty": 300,
+        "avgPrice": 425,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "qxmdnhx",
+        "name": "Monarch Surveyors & Engg",
+        "symbol": "MSECL.BO",
+        "account": "Deepak HUF",
+        "qty": 600,
+        "avgPrice": 273,
+        "sector": "TIER 6"
+      },
+      {
+        "id": "ksjjr0i",
+        "name": "TCS",
+        "symbol": "TCS",
+        "account": "Deepak HUF",
+        "qty": 31,
+        "avgPrice": 3178.3,
+        "sector": "TIER 6"
       }
-    }
-  }catch(e){}
-  // No v3 data found — load PRELOADED (broker data as of 9 Aug 2026)
-  ['stocks','etfs','mf','gold','fd','nsc','land'].forEach(k=>{
-    if(PRELOADED[k])port[k]=JSON.parse(JSON.stringify(PRELOADED[k]));
-  });
-  // Save as v3
-  try{localStorage.setItem('famport_v4',JSON.stringify(port));}catch(e){}
-}
-
-// ── Fetch engine ──────────────────────────────────────────
-// batchFetch defined in fetch engine below
-// ── Fetch engine — Vercel API primary, fallbacks for dev mode ──
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-const IS_HTTPS = location.protocol === 'https:';
-
-// Detect if running on Vercel (has /api/quote endpoint)
-let VERCEL_API = null;
-async function detectVercel() {
-  if (!IS_HTTPS) return false;
-  try {
-    const r = await fetch('/api/quote?symbols=SBIN', { signal: AbortSignal.timeout(3000) });
-    if (r.ok) { VERCEL_API = '/api/quote'; return true; }
-  } catch(e) {}
-  return false;
-}
-
-async function batchFetch(tasks, batchSize=3, delayMs=400) {
-  for (let i = 0; i < tasks.length; i += batchSize) {
-    await Promise.allSettled(tasks.slice(i, i + batchSize).map(fn => fn()));
-    if (i + batchSize < tasks.length) await sleep(delayMs);
-  }
-}
-
-// Yahoo crumb (fallback only)
-let yahooCrumb = null, crumbTime = 0;
-async function ensureCrumb() {
-  if (yahooCrumb && (Date.now() - crumbTime) < 25 * 60 * 1000) return;
-  try {
-    const r = await fetch('https://query2.finance.yahoo.com/v1/test/getcrumb', { signal: AbortSignal.timeout(5000) });
-    if (r.ok) { const t = (await r.text()).trim(); if (t && t.length > 2 && t.length < 60) { yahooCrumb = t; crumbTime = Date.now(); } }
-  } catch(e) {}
-}
-
-// Direct browser fetch with proxies (used when Vercel API not available)
-async function tryFetch(url) {
-  try { const r = await fetch(url, { signal: AbortSignal.timeout(10000) }); if (r.ok) { const t = await r.text(); if (t && (t[0] === '{' || t[0] === '[')) return JSON.parse(t); } } catch(e) {}
-  const proxies = ['https://corsproxy.io/?', 'https://api.allorigins.win/raw?url='];
-  for (const px of proxies) {
-    try { const r = await fetch(px + encodeURIComponent(url), { signal: AbortSignal.timeout(10000) }); if (!r.ok) continue; const t = await r.text(); if (!t || !t.trim()) continue; return JSON.parse(t); } catch(e) { continue; }
-  }
-  return null;
-}
-
-// Stooq fallback for individual symbols
-async function fStooq(stooqSym) {
-  const now = new Date();
-  const d2 = now.toISOString().slice(0, 10).replace(/-/g, '');
-  const past = new Date(now - 10 * 24 * 3600 * 1000);
-  const d1 = past.toISOString().slice(0, 10).replace(/-/g, '');
-  try {
-    const url = 'https://stooq.com/q/d/l/?s=' + stooqSym + '&d1=' + d1 + '&d2=' + d2 + '&i=d';
-    const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    if (!r.ok) return null;
-    const text = await r.text();
-    if (!text || text.toLowerCase().includes('no data')) return null;
-    const lines = text.trim().split('\n').filter(l => l.trim() && !l.startsWith('Date'));
-    if (!lines.length) return null;
-    const last = lines[lines.length - 1].split(',');
-    const prev = lines.length >= 2 ? lines[lines.length - 2].split(',') : null;
-    const p = parseFloat(last[4]);
-    const pv = prev ? parseFloat(prev[4]) : p;
-    if (isNaN(p) || p <= 0) return null;
-    return { p, pv, c: +(p - pv).toFixed(2), cp: +(pv > 0 ? ((p - pv) / pv) * 100 : 0).toFixed(2) };
-  } catch(e) { return null; }
-}
-
-// Main price fetch — uses Vercel API if available, else browser fallbacks
-async function fNSE(sym) {
-  if (pc[sym]) return pc[sym];
-  // Vercel API (server-side, most reliable)
-  if (VERCEL_API) {
-    try {
-      const r = await fetch(VERCEL_API + '?symbols=' + sym, { signal: AbortSignal.timeout(10000) });
-      if (r.ok) {
-        const j = await r.json();
-        if (j[sym]) return pc[sym] = j[sym];
+    ],
+    "etfs": [
+      {
+        "id": "sfyed5h",
+        "name": "Momentum 30 ETF",
+        "symbol": "MOM30IETF",
+        "account": "Deepak",
+        "qty": 1200,
+        "avgPrice": 30.01,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "9gxcjme",
+        "name": "Metal ETF",
+        "symbol": "METALIETF",
+        "account": "Deepak",
+        "qty": 2106,
+        "avgPrice": 11.85,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "vlkvnf8",
+        "name": "Gold ETF",
+        "symbol": "GOLDIETF",
+        "account": "Deepak",
+        "qty": 363,
+        "avgPrice": 82.65,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "b23fnts",
+        "name": "HDFC Small & Midcap 250",
+        "symbol": "HDFCSML250",
+        "account": "Deepak",
+        "qty": 248,
+        "avgPrice": 162.71,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "py8zivg",
+        "name": "Bank ETF",
+        "symbol": "BANKBEES",
+        "account": "Deepak",
+        "qty": 171,
+        "avgPrice": 552.01,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "vj4856r",
+        "name": "IT ETF",
+        "symbol": "ITBEES",
+        "account": "Deepak",
+        "qty": 2867,
+        "avgPrice": 39.41,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "rq2wikw",
+        "name": "Pharma ETF",
+        "symbol": "PHARMABEES",
+        "account": "Deepak",
+        "qty": 1349,
+        "avgPrice": 22.2,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "il9hmv2",
+        "name": "Silver ETF",
+        "symbol": "SILVERBEES",
+        "account": "Deepak",
+        "qty": 169,
+        "avgPrice": 147.85,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "jfgmcrf",
+        "name": "Momentum 100 ETF",
+        "symbol": "MOM100",
+        "account": "Deepak",
+        "qty": 502,
+        "avgPrice": 59.55,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "9dv7b6s",
+        "name": "Defence ETF",
+        "symbol": "MODEFENCE",
+        "account": "Deepak",
+        "qty": 240,
+        "avgPrice": 104.11,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "t2gxrqp",
+        "name": "CPSE ETF",
+        "symbol": "CPSEETF",
+        "account": "Deepak",
+        "qty": 560,
+        "avgPrice": 89.24,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "bsnc6rd",
+        "name": "Junior Bees",
+        "symbol": "JUNIORBEES",
+        "account": "Deepak",
+        "qty": 76,
+        "avgPrice": 718.59,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "hxmi6wz",
+        "name": "Midcap ETF",
+        "symbol": "MIDCAPETF",
+        "account": "Deepak",
+        "qty": 256,
+        "avgPrice": 19.54,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "l029bjn",
+        "name": "EV India ETF",
+        "symbol": "EVINDIA",
+        "account": "Deepak",
+        "qty": 614,
+        "avgPrice": 26.08,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "ee2z4xu",
+        "name": "CPSE ETF",
+        "symbol": "CPSEETF",
+        "account": "Chanchal",
+        "qty": 260,
+        "avgPrice": 96.3,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "0klzwv8",
+        "name": "EV India ETF",
+        "symbol": "EVINDIA",
+        "account": "Chanchal",
+        "qty": 825,
+        "avgPrice": 30.3,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "4s0uhg8",
+        "name": "Gold ETF",
+        "symbol": "GOLDIETF",
+        "account": "Chanchal",
+        "qty": 355,
+        "avgPrice": 102.05,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "jr2pff0",
+        "name": "HDFC Small & Midcap 250",
+        "symbol": "HDFCSML250",
+        "account": "Chanchal",
+        "qty": 331,
+        "avgPrice": 169.85,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "acvuftu",
+        "name": "IT ETF",
+        "symbol": "ITBEES",
+        "account": "Chanchal",
+        "qty": 1008,
+        "avgPrice": 32.71,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "1dp11np",
+        "name": "Junior Bees",
+        "symbol": "JUNIORBEES",
+        "account": "Chanchal",
+        "qty": 34,
+        "avgPrice": 740,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "yhmg5yr",
+        "name": "Metal ETF",
+        "symbol": "METALIETF",
+        "account": "Chanchal",
+        "qty": 1865,
+        "avgPrice": 13.4,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "lod9ixo",
+        "name": "Defence ETF",
+        "symbol": "MODEFENCE",
+        "account": "Chanchal",
+        "qty": 272,
+        "avgPrice": 80.89,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "qojgvsl",
+        "name": "Momentum 100 ETF",
+        "symbol": "MOM100",
+        "account": "Chanchal",
+        "qty": 108,
+        "avgPrice": 58.03,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "08t9o4q",
+        "name": "Nifty Bees",
+        "symbol": "NIFTYBEES",
+        "account": "Chanchal",
+        "qty": 198,
+        "avgPrice": 278,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "qp5j2uf",
+        "name": "Silver ETF",
+        "symbol": "SILVERBEES",
+        "account": "Chanchal",
+        "qty": 871,
+        "avgPrice": 133.81,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "qqcrw8a",
+        "name": "Bank ETF",
+        "symbol": "BANKBEES",
+        "account": "Pawan Kumar",
+        "qty": 53,
+        "avgPrice": 571.27,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "197tau6",
+        "name": "CPSE ETF",
+        "symbol": "CPSEETF",
+        "account": "Pawan Kumar",
+        "qty": 113,
+        "avgPrice": 86.75,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "hkq6f8e",
+        "name": "EV India ETF",
+        "symbol": "EVINDIA",
+        "account": "Pawan Kumar",
+        "qty": 184,
+        "avgPrice": 27.25,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "30atkm2",
+        "name": "Gold ETF",
+        "symbol": "GOLDIETF",
+        "account": "Pawan Kumar",
+        "qty": 654,
+        "avgPrice": 82.39,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "qbq56wv",
+        "name": "HDFC Small & Midcap 250",
+        "symbol": "HDFCSML250",
+        "account": "Pawan Kumar",
+        "qty": 213,
+        "avgPrice": 164.11,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "scjb7n5",
+        "name": "IT ETF",
+        "symbol": "ITBEES",
+        "account": "Pawan Kumar",
+        "qty": 1524,
+        "avgPrice": 36.75,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "cqg9ja2",
+        "name": "Junior Bees",
+        "symbol": "JUNIORBEES",
+        "account": "Pawan Kumar",
+        "qty": 38,
+        "avgPrice": 661.64,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "vlk44pc",
+        "name": "Metal ETF",
+        "symbol": "METALIETF",
+        "account": "Pawan Kumar",
+        "qty": 1911,
+        "avgPrice": 13.08,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "3ulgprj",
+        "name": "Midcap ETF",
+        "symbol": "MIDCAPETF",
+        "account": "Pawan Kumar",
+        "qty": 960,
+        "avgPrice": 21.16,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "297x3vw",
+        "name": "Momentum 100 ETF",
+        "symbol": "MOM100",
+        "account": "Pawan Kumar",
+        "qty": 444,
+        "avgPrice": 56.43,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "558cyci",
+        "name": "Momentum 30 ETF",
+        "symbol": "MOM30IETF",
+        "account": "Pawan Kumar",
+        "qty": 2438,
+        "avgPrice": 31.1,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "jcd1674",
+        "name": "Nifty Bees",
+        "symbol": "NIFTYBEES",
+        "account": "Pawan Kumar",
+        "qty": 19,
+        "avgPrice": 268.19,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "xs0uw7b",
+        "name": "Pharma ETF",
+        "symbol": "PHARMABEES",
+        "account": "Pawan Kumar",
+        "qty": 948,
+        "avgPrice": 26.38,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "49bcvzm",
+        "name": "Silver ETF",
+        "symbol": "SILVERBEES",
+        "account": "Pawan Kumar",
+        "qty": 1388,
+        "avgPrice": 131.85,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "ghuq9mv",
+        "name": "Bank ETF",
+        "symbol": "BANKBEES",
+        "account": "Pawan HUF",
+        "qty": 58,
+        "avgPrice": 512.5,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "haiybhl",
+        "name": "CPSE ETF",
+        "symbol": "CPSEETF",
+        "account": "Pawan HUF",
+        "qty": 549,
+        "avgPrice": 100.17,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "v96vd19",
+        "name": "EV India ETF",
+        "symbol": "EVINDIA",
+        "account": "Pawan HUF",
+        "qty": 1917,
+        "avgPrice": 28.88,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "m7m3fjr",
+        "name": "Gold ETF",
+        "symbol": "GOLDIETF",
+        "account": "Pawan HUF",
+        "qty": 599,
+        "avgPrice": 96.76,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "hknyxpp",
+        "name": "HDFC Small & Midcap 250",
+        "symbol": "HDFCSML250",
+        "account": "Pawan HUF",
+        "qty": 187,
+        "avgPrice": 161.2,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "3r5n45w",
+        "name": "IT ETF",
+        "symbol": "ITBEES",
+        "account": "Pawan HUF",
+        "qty": 3217,
+        "avgPrice": 39.82,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "906wwb2",
+        "name": "Junior Bees",
+        "symbol": "JUNIORBEES",
+        "account": "Pawan HUF",
+        "qty": 7,
+        "avgPrice": 690.51,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "8aq6xla",
+        "name": "Midcap ETF",
+        "symbol": "MIDCAPETF",
+        "account": "Pawan HUF",
+        "qty": 1388,
+        "avgPrice": 21.6,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "1dqap6q",
+        "name": "Momentum 100 ETF",
+        "symbol": "MOM100",
+        "account": "Pawan HUF",
+        "qty": 182,
+        "avgPrice": 54.67,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "gshnigk",
+        "name": "Nifty Bees",
+        "symbol": "NIFTYBEES",
+        "account": "Pawan HUF",
+        "qty": 111,
+        "avgPrice": 273.59,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "0as5gxg",
+        "name": "Pharma ETF",
+        "symbol": "PHARMABEES",
+        "account": "Pawan HUF",
+        "qty": 3542,
+        "avgPrice": 23.48,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "4hti5bo",
+        "name": "Silver ETF",
+        "symbol": "SILVERBEES",
+        "account": "Pawan HUF",
+        "qty": 611,
+        "avgPrice": 97.7,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "pyrcy0b",
+        "name": "Bank ETF",
+        "symbol": "BANKBEES",
+        "account": "Sunita Agarwal",
+        "qty": 44,
+        "avgPrice": 570,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "wkn3nbe",
+        "name": "CPSE ETF",
+        "symbol": "CPSEETF",
+        "account": "Sunita Agarwal",
+        "qty": 530,
+        "avgPrice": 85.11,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "q15b40n",
+        "name": "EV India ETF",
+        "symbol": "EVINDIA",
+        "account": "Sunita Agarwal",
+        "qty": 2027,
+        "avgPrice": 27.11,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "v9vayx8",
+        "name": "Gold ETF",
+        "symbol": "GOLDIETF",
+        "account": "Sunita Agarwal",
+        "qty": 765,
+        "avgPrice": 91.64,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "2czl4pn",
+        "name": "HDFC Small & Midcap 250",
+        "symbol": "HDFCSML250",
+        "account": "Sunita Agarwal",
+        "qty": 457,
+        "avgPrice": 164.33,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "r79r88h",
+        "name": "IT ETF",
+        "symbol": "ITBEES",
+        "account": "Sunita Agarwal",
+        "qty": 3410,
+        "avgPrice": 36.47,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "xbrgqq6",
+        "name": "Junior Bees",
+        "symbol": "JUNIORBEES",
+        "account": "Sunita Agarwal",
+        "qty": 21,
+        "avgPrice": 709.21,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "j7u0knd",
+        "name": "Metal ETF",
+        "symbol": "METALIETF",
+        "account": "Sunita Agarwal",
+        "qty": 1830,
+        "avgPrice": 13.66,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "kzhd0t6",
+        "name": "Momentum 100 ETF",
+        "symbol": "MOM100",
+        "account": "Sunita Agarwal",
+        "qty": 461,
+        "avgPrice": 54.13,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "elwvup8",
+        "name": "Momentum 30 ETF",
+        "symbol": "MOM30IETF",
+        "account": "Sunita Agarwal",
+        "qty": 998,
+        "avgPrice": 30.07,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "kmr52ay",
+        "name": "MON100 ETF",
+        "symbol": "MON100",
+        "account": "Sunita Agarwal",
+        "qty": 28,
+        "avgPrice": 178.58,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "czv42rc",
+        "name": "Silver ETF",
+        "symbol": "SILVERBEES",
+        "account": "Sunita Agarwal",
+        "qty": 468,
+        "avgPrice": 170.95,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "09psnhp",
+        "name": "Momentum 30 ETF",
+        "symbol": "MOM30IETF",
+        "account": "Deepak HUF",
+        "qty": 778,
+        "avgPrice": 32.13,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "m8g7sz9",
+        "name": "HDFC Small & Midcap 250",
+        "symbol": "HDFCSML250",
+        "account": "Deepak HUF",
+        "qty": 159,
+        "avgPrice": 156.92,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "yygyamp",
+        "name": "Bank ETF",
+        "symbol": "BANKBEES",
+        "account": "Deepak HUF",
+        "qty": 134,
+        "avgPrice": 559.3,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "m2ez6yu",
+        "name": "IT ETF",
+        "symbol": "ITBEES",
+        "account": "Deepak HUF",
+        "qty": 1327,
+        "avgPrice": 37.71,
+        "sector": "TIER 3"
+      },
+      {
+        "id": "14bw8ya",
+        "name": "Silver ETF",
+        "symbol": "SILVERBEES",
+        "account": "Deepak HUF",
+        "qty": 346,
+        "avgPrice": 144.62,
+        "sector": "TIER 5"
+      },
+      {
+        "id": "x5mbm7k",
+        "name": "Defence ETF",
+        "symbol": "MODEFENCE",
+        "account": "Deepak HUF",
+        "qty": 534,
+        "avgPrice": 93.86,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "gyij24s",
+        "name": "CPSE ETF",
+        "symbol": "CPSEETF",
+        "account": "Deepak HUF",
+        "qty": 272,
+        "avgPrice": 91.89,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "qje3eey",
+        "name": "EV India ETF",
+        "symbol": "EVINDIA",
+        "account": "Deepak HUF",
+        "qty": 802,
+        "avgPrice": 31.2,
+        "sector": "TIER 4"
+      },
+      {
+        "id": "jcrnlav",
+        "name": "NIFTYBEES",
+        "symbol": "NIFTYBEES",
+        "account": "Deepak HUF",
+        "qty": 90,
+        "avgPrice": 278.98,
+        "sector": "TIER 1"
       }
-    } catch(e) {}
-  }
-  // Stooq fallback
-  let stooqSym;
-  if (sym.endsWith('.BO')) stooqSym = sym.slice(0, -3).toLowerCase() + '.bs';
-  else if (sym.includes('.')) stooqSym = sym.toLowerCase();
-  else stooqSym = sym.toLowerCase() + '.ns';
-  const sd = await fStooq(stooqSym);
-  if (sd) return pc[sym] = sd;
-  // Yahoo Finance browser fallback
-  const ticker = sym.includes('.') ? sym : sym + '.NS';
-  const cp2 = yahooCrumb ? '&crumb=' + encodeURIComponent(yahooCrumb) : '';
-  for (const base of ['https://query2.finance.yahoo.com', 'https://query1.finance.yahoo.com']) {
-    try {
-      const j = await tryFetch(base + '/v8/finance/chart/' + ticker + '?interval=1d&range=1d' + cp2);
-      const m = j?.chart?.result?.[0]?.meta;
-      if (m?.regularMarketPrice > 0) {
-        const p = m.regularMarketPrice, pv = m.previousClose || m.chartPreviousClose || p;
-        return pc[sym] = { p, pv, c: +(p - pv).toFixed(2), cp: +(pv > 0 ? ((p - pv) / pv) * 100 : 0).toFixed(2) };
+    ],
+    "mf": [
+      {
+        "id": "5mzszei",
+        "name": "Quant Small Cap Fund - Direct Plan",
+        "schemeCode": "120828",
+        "account": "Pawan Kumar",
+        "units": 2701.643,
+        "avgNAV": 185.06,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "ywhv9sl",
+        "name": "HSBC Small Cap Fund - Direct Plan",
+        "schemeCode": "151130",
+        "account": "Pawan Kumar",
+        "units": 1043.92,
+        "avgNAV": 95.79,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "oyonka6",
+        "name": "Motilal Oswal Mid Cap Fund - Direct Plan",
+        "schemeCode": "127042",
+        "account": "Pawan HUF",
+        "units": 641.324,
+        "avgNAV": 116.94,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "1codfpu",
+        "name": "Quant Mid Cap Fund - Direct Plan",
+        "schemeCode": "120841",
+        "account": "Pawan HUF",
+        "units": 2778.295,
+        "avgNAV": 179.96,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "09ptkpe",
+        "name": "Quant Multicap Fund - Direct Plan",
+        "schemeCode": "120823",
+        "account": "Sunita Agarwal",
+        "units": 630.423,
+        "avgNAV": 634.46,
+        "sector": "TIER 2"
+      },
+      {
+        "id": "udq4uc3",
+        "name": "Nippon India Large Cap Fund - Direct Plan",
+        "schemeCode": "118632",
+        "account": "Deepak",
+        "units": 1015.707,
+        "avgNAV": 98.45,
+        "sector": "TIER 1"
+      },
+      {
+        "id": "pa7o9jw",
+        "name": "Canara Robeco Large Cap Fund - Direct Plan",
+        "schemeCode": "118269",
+        "account": "Deepak",
+        "units": 9559.81,
+        "avgNAV": 52.3,
+        "sector": "TIER 1"
       }
-    } catch(e) {}
-  }
-  return null;
-}
-
-// Bulk fetch via Vercel API (batches of 50)
-async function fetchBulkVercel(symbols) {
-  if (!VERCEL_API || !symbols.length) return false;
-  try {
-    const chunk = symbols.slice(0, 50).join(',');
-    const r = await fetch(VERCEL_API + '?symbols=' + encodeURIComponent(chunk), { signal: AbortSignal.timeout(15000) });
-    if (!r.ok) return false;
-    const j = await r.json();
-    let got = 0;
-    Object.entries(j).forEach(([sym, data]) => { if (data) { pc[sym] = data; got++; } });
-    return got > 0;
-  } catch(e) { return false; }
-}
-
-async function fMF(code){
-  if(mfc[code])return mfc[code];
-  try{
-    const r=await fetch('https://api.mfapi.in/mf/'+code,{signal:AbortSignal.timeout(8000)});
-    const j=await r.json();if(!j.data||!j.data.length)return null;
-    const nav=parseFloat(j.data[0].nav),pv=j.data.length>1?parseFloat(j.data[1].nav):nav;
-    // Auto-set sector/category from mfapi meta if not already set
-    const mfItem=port.mf.find(m=>m.schemeCode===code);
-    if(mfItem&&!mfItem.sector&&j.meta?.scheme_category){
-      mfItem.sector=simplifyMFCat(j.meta.scheme_category);sv();
+    ],
+    "gold": [],
+    "fd": [],
+    "nsc": [],
+    "land": []
+  },
+  "manualCMP": {
+    "RAJESH": {
+      "p": 761.35,
+      "pv": 761.35,
+      "c": 0,
+      "cp": 0
     }
-    return mfc[code]={nav,pv,c:nav-pv,cp:pv>0?((nav-pv)/pv)*100:0};
-  }catch(e){return null;}
+  },
+  "exportedAt": "19/9/2026, 2:54:30 pm",
+  "version": "famport_v2"
 }
-
-function simplifyMFCat(cat){
-  if(!cat)return'Mutual Fund';
-  if(/equity/i.test(cat))return'Equity MF';
-  if(/debt/i.test(cat)||/liquid/i.test(cat)||/bond/i.test(cat))return'Debt MF';
-  if(/hybrid/i.test(cat))return'Hybrid MF';
-  if(/index/i.test(cat))return'Index MF';
-  if(/elss/i.test(cat))return'ELSS MF';
-  if(/gold/i.test(cat))return'Gold MF';
-  if(/international/i.test(cat)||/overseas/i.test(cat))return'International MF';
-  return cat.split('-')[0].trim();
-}
-
-async function fGold(){
-  if(gc)return gc;
-  try{
-    const[gj,fj]=await Promise.all([
-      tryFetch('https://query2.finance.yahoo.com/v8/finance/chart/GC=F?interval=1d&range=1d'),
-      tryFetch('https://query2.finance.yahoo.com/v8/finance/chart/USDINR=X?interval=1d&range=1d')]);
-    const gm=gj?.chart?.result?.[0]?.meta,fm=fj?.chart?.result?.[0]?.meta;if(!gm||!fm)return null;
-    const T=31.1035,fx=fm.regularMarketPrice,p=(gm.regularMarketPrice*fx)/T,pv=(gm.previousClose*fx)/T;
-    return gc={p,pv,c:p-pv,cp:pv>0?((p-pv)/pv)*100:0};
-  }catch(e){return null;}
-}
-
-// ── Sector auto-fetch from Yahoo assetProfile ─────────────
-async function fetchSector(sym){
-  const ticker=sym.includes('.')?sym:sym+'.NS';
-  try{
-    for(const base of['https://query2.finance.yahoo.com','https://query1.finance.yahoo.com']){
-      const j=await tryFetch(base+'/v11/finance/quoteSummary/'+ticker+'?modules=assetProfile');
-      const profile=j?.quoteSummary?.result?.[0]?.assetProfile;
-      if(profile?.sector)return profile.sector;
-      if(profile?.industry)return profile.industry;
-    }
-  }catch(e){}
-  return null;
-}
-
-async function refreshAll(){
-  const btn=document.getElementById('rbtn'),ic=document.getElementById('ric');
-  btn.disabled=true;hideBars();pc={};mfc={};gc=null;
-  ic.innerHTML='<span class="spin">↻</span> Connecting...';
-  ensureCrumb();// fire-and-forget, Yahoo used only as fallback
-
-  const sy=[...new Set([...port.stocks,...port.etfs].map(s=>s.symbol).filter(Boolean))];
-  const co=[...new Set(port.mf.map(m=>m.schemeCode).filter(Boolean))];
-
-  const total = sy.length + co.length + (port.gold.length ? 1 : 0);
-  let done = 0;
-  const tick = n => { done += n; ic.innerHTML = `<span class="spin">↻</span> ${done}/${total}`; };
-
-  // Detect Vercel API on first refresh
-  if (VERCEL_API === null) {
-    ic.innerHTML = '<span class="spin">↻</span> Connecting...';
-    await detectVercel();
-  }
-
-  if (VERCEL_API) {
-    // VERCEL MODE: Bulk fetch all symbols in 1-2 requests (server-side, no CORS)
-    ic.innerHTML = '<span class="spin">↻</span> Fetching live prices...';
-    const CHUNK = 50;
-    for (let i = 0; i < sy.length; i += CHUNK) {
-      await fetchBulkVercel(sy.slice(i, i + CHUNK));
-      tick(Math.min(CHUNK, sy.length - i));
-    }
-    // Retry failed ones individually (SME stocks etc.)
-    const fail1 = sy.filter(s => !pc[s]);
-    if (fail1.length) {
-      ic.innerHTML = `<span class="spin">↻</span> Retrying ${fail1.length}...`;
-      await batchFetch(fail1.map(s => async () => fNSE(s)), 3, 300);
-    }
-  } else {
-    // BROWSER MODE: Stooq + Yahoo with fallbacks
-    ic.innerHTML = '<span class="spin">↻</span> Fetching prices...';
-    await batchFetch(sy.map(s => async () => { await fNSE(s); tick(1); }), 3, 450);
-    const fail1 = sy.filter(s => !pc[s]);
-    if (fail1.length) {
-      await sleep(800);
-      await batchFetch(fail1.map(s => async () => fNSE(s)), 2, 500);
-    }
-  }
-
-  // MFs and gold (always direct)
-  ic.innerHTML = '<span class="spin">↻</span> MF + Gold...';
-  await batchFetch(co.map(c => async () => { await fMF(c); tick(1); }), 4, 200);
-  if (port.gold.length) { await fGold(); tick(1); }
-
-  // Auto-fetch missing sectors in background (small batches, no rush)
-  const needSector=[...port.stocks,...port.etfs].filter(s=>!s.sector&&s.symbol);
-  if(needSector.length){
-    batchFetch(needSector.map(s=>async()=>{
-      const sec=await fetchSector(s.symbol);
-      if(sec){s.sector=sec;}
-    }),3,600).then(()=>sv());
-  }
-
-  ic.innerHTML='↻ Refresh';btn.disabled=false;
-  document.getElementById('ulbl').textContent='Updated: '+new Date().toLocaleTimeString('en-IN');
-
-  const failed=sy.filter(s=>!pc[s]);
-  const allFailed=sy.length>0&&failed.length===sy.length;
-  if(allFailed&&!IS_HTTPS){
-    // Only show CORS extension message on file:// (laptop)
-    document.getElementById('corsbar').classList.add('show');
-  }else if(failed.length){
-    const wb=document.getElementById('warnbar');
-    wb.textContent='⚠️ No live price for: '+failed.join(', ')+' — SME/unlisted stock. Enter CMP manually.';
-    wb.classList.add('show');
-  }
-  ra();
-}
-
-function hideBars(){document.getElementById('corsbar').classList.remove('show');document.getElementById('warnbar').classList.remove('show');}
-
-// ── Manual CMP ────────────────────────────────────────────
-function setManualCMP(sym,val){const v=parseFloat(val);if(!isNaN(v)&&v>0){manualCMP[sym]={p:v,pv:v,c:0,cp:0};sv();ra();}}
-
-// ── Valuations ────────────────────────────────────────────
-function eqV(s){
-  const c=pc[s.symbol]||manualCMP[s.symbol]||{};
-  const cp=c.p||s.avgPrice,inv=s.qty*s.avgPrice,cur=s.qty*cp;
-  return{cp,inv,cur,td:s.qty*(c.c||0),tdp:c.cp||0,pnl:cur-inv,pnlp:inv>0?((cur-inv)/inv)*100:0,hasLive:!!pc[s.symbol],hasManual:!pc[s.symbol]&&!!manualCMP[s.symbol]};
-}
-function mV(m){
-  const c=mfc[m.schemeCode]||{};const nav=c.nav||m.avgNAV,inv=m.units*m.avgNAV,cur=m.units*nav;
-  return{nav,inv,cur,td:m.units*(c.c||0),tdp:c.cp||0,pnl:cur-inv,pnlp:inv>0?((cur-inv)/inv)*100:0,hasLive:!!mfc[m.schemeCode]};
-}
-function gV(g){const c=gc;const cp=c?c.p:g.avgPrice,inv=g.grams*g.avgPrice,cur=g.grams*cp;return{cp,inv,cur,td:g.grams*(c?c.c:0),tdp:c?c.cp:0,pnl:cur-inv,pnlp:inv>0?((cur-inv)/inv)*100:0};}
-function fV(f){const y=(Date.now()-new Date(f.startDate))/(365.25*24*3600*1000),n=f.compounding==='monthly'?12:f.compounding==='quarterly'?4:1;const cur=y<0?f.principal:f.principal*Math.pow(1+f.rate/(100*n),n*y);return{inv:f.principal,cur,pnl:cur-f.principal,pnlp:((cur-f.principal)/f.principal)*100};}
-function nV(n){const y=(Date.now()-new Date(n.purchaseDate))/(365.25*24*3600*1000);const cur=n.principal*Math.pow(1.077,Math.min(Math.max(y,0),5));return{inv:n.principal,cur,pnl:cur-n.principal,pnlp:((cur-n.principal)/n.principal)*100};}
-function lV(l){return{inv:l.purchasePrice,cur:l.currentValue,pnl:l.currentValue-l.purchasePrice,pnlp:l.purchasePrice>0?((l.currentValue-l.purchasePrice)/l.purchasePrice)*100:0};}
-function fi(arr){return fA==='all'?arr:arr.filter(x=>x.account===fA);}
-
-function gSum(acc){
-  const fa=a=>acc==='all'?a:a.filter(x=>x.account===acc);
-  let inv=0,cur=0,td=0;
-  [...fa(port.stocks),...fa(port.etfs)].forEach(s=>{const v=eqV(s);inv+=v.inv;cur+=v.cur;td+=v.td;});
-  fa(port.mf).forEach(m=>{const v=mV(m);inv+=v.inv;cur+=v.cur;td+=v.td;});
-  fa(port.gold).forEach(g=>{const v=gV(g);inv+=v.inv;cur+=v.cur;td+=v.td;});
-  fa(port.fd).forEach(f=>{const v=fV(f);inv+=v.inv;cur+=v.cur;});
-  fa(port.nsc).forEach(n=>{const v=nV(n);inv+=v.inv;cur+=v.cur;});
-  fa(port.land).forEach(l=>{const v=lV(l);inv+=v.inv;cur+=v.cur;});
-  const pnl=cur-inv,pnlp=inv>0?(pnl/inv)*100:0,base=cur-td,tdp=base>0?(td/base)*100:0;
-  return{inv,cur,pnl,pnlp,td,tdp};
-}
-
-// ── Sector aggregation ────────────────────────────────────
-function getSectorData(){
-  const map={};// sector -> {inv, cur, holdings:[]}
-  const add=(sector,inv,cur,name)=>{
-    const k=sector||'Unknown';
-    if(!map[k])map[k]={inv:0,cur:0,holdings:[]};
-    map[k].inv+=inv;map[k].cur+=cur;map[k].holdings.push(name);
-  };
-  fi(port.stocks).forEach(s=>{const v=eqV(s);add(s.sector,v.inv,v.cur,s.name);});
-  fi(port.etfs).forEach(s=>{const v=eqV(s);add(s.sector,v.inv,v.cur,s.name);});
-  fi(port.mf).forEach(m=>{const v=mV(m);add(m.sector,v.inv,v.cur,m.name);});
-  // Sort by invested desc
-  return Object.entries(map).sort((a,b)=>b[1].inv-a[1].inv);
-}
-
-// ── UI ────────────────────────────────────────────────────
-function rAccRow(){document.getElementById('accrow').innerHTML=['all',...ACCS].map(a=>`<button class="apill${fA===a?' on':''}" onclick="setAcc('${a}')">${a==='all'?'All accounts':a}</button>`).join('');}
-function setAcc(a){fA=a;rAccRow();ra();}
-function sw(a){
-  fS=a;
-  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.a===a));
-  document.getElementById('ta').style.display=(a==='charts'||a==='sectors'||a==='exposure')?'none':'';
-  document.getElementById('ca').style.display=a==='charts'?'':'none';
-  document.getElementById('seca').style.display=a==='sectors'?'':'none';
-  document.getElementById('expa').style.display=a==='exposure'?'':'none';
-  if(a==='charts')rCharts();else if(a==='sectors')rSectors();else if(a==='exposure')rExposure();else rTables();
-}
-function rSum(){
-  const s=gSum(fA);
-  document.getElementById('si').textContent=inr(s.inv);document.getElementById('sc').textContent=inr(s.cur);
-  const td=document.getElementById('st'),tp=document.getElementById('stp');td.textContent=inrS(s.td);td.style.color=clr(s.td);tp.textContent=pct(s.tdp);tp.style.color=clr(s.td);
-  const pl=document.getElementById('sp'),pp=document.getElementById('spp');pl.textContent=inrS(s.pnl);pl.style.color=clr(s.pnl);pp.textContent=pct(s.pnlp);pp.style.color=clr(s.pnl);
-}
-
-function cmpCell(s,v){
-  if(v.hasLive)return`<td><strong>${inr(v.cp)}</strong></td>`;
-  if(v.hasManual)return`<td><input type="number" class="cmp-inp" value="${v.cp}" onchange="setManualCMP('${s.symbol}',this.value)"><span class="cmp-lbl">✏️ manual</span></td>`;
-  return`<td><input type="number" class="cmp-inp" placeholder="Enter ₹" onchange="setManualCMP('${s.symbol}',this.value)"><span class="cmp-lbl">enter CMP</span></td>`;
-}
-
-function sectorDot(sec,idx){
-  const col=SCOLS[idx%SCOLS.length];
-  return`<span class="sbadge" style="background:${col}">${sec||'—'}</span>`;
-}
-
-function mkEqSec(type,items,title){
-  const totalPortVal=gSum('all').cur||1;
-  let h=`<div class="sec"><div class="sech"><span class="sect">${title}<span class="scnt">(${items.length})</span></span><button class="abtn" onclick="openAdd('${type}')">+ Add</button></div>`;
-  if(!items.length)return h+`<div class="em">No ${title.toLowerCase()} yet — click + Add</div></div>`;
-  let ti=0,tc=0,tt=0;
-  const allSectors=[...new Set([...port.stocks,...port.etfs,...port.mf].map(x=>x.sector).filter(Boolean))];
-  h+=`<div class="scroll"><table><thead><tr><th>Name</th><th>Sector</th><th>Symbol</th><th>Acct</th><th>Qty</th><th>Avg ₹</th><th>CMP</th><th>Today ₹</th><th>Today %</th><th>Invested</th><th>Value</th><th>Portfolio %</th><th>P&L ₹</th><th>P&L %</th><th></th></tr></thead><tbody>`;
-  items.forEach(s=>{
-    const v=eqV(s);ti+=v.inv;tc+=v.cur;tt+=v.td;
-    const si=allSectors.indexOf(s.sector);
-    const portPct=(v.cur/totalPortVal)*100;
-    const portColor=portPct>=20?'#dc2626':portPct>=10?'#ea580c':portPct>=5?'#d97706':'#059669';
-    h+=`<tr>
-      <td><strong>${s.name}</strong></td>
-      <td>${s.sector?sectorDot(s.sector,si):'<span style="color:#aaa;font-size:11px">fetching…</span>'}</td>
-      <td style="color:#888;font-size:11px">${s.symbol.includes('.')?s.symbol:s.symbol+'.NS'}</td>
-      <td><span class="badge">${s.account}</span></td>
-      <td>${s.qty}</td><td>${inr(s.avgPrice)}</td>
-      ${cmpCell(s,v)}
-      <td class="${cls(v.td)}">${v.hasLive?inrS(v.td):'—'}</td>
-      <td class="${cls(v.tdp)}">${v.hasLive?pct(v.tdp):'—'}</td>
-      <td>${inr(v.inv)}</td><td><strong>${inr(v.cur)}</strong></td>
-      <td><span style="color:${portColor};font-weight:600">${portPct.toFixed(1)}%</span></td>
-      <td class="${cls(v.pnl)}">${inrS(v.pnl)}</td>
-      <td class="${cls(v.pnlp)}">${pct(v.pnlp)}</td>
-      <td style="white-space:nowrap"><button class="ib e" onclick="ei('${type}','${s.id}')">✎</button><button class="ib d" onclick="di('${type}','${s.id}')">×</button></td>
-    </tr>`;
-  });
-  if(items.length>1){const tn=tc-ti,tnp=ti>0?(tn/ti)*100:0,ttp=(tc-tt)>0?(tt/(tc-tt))*100:0;
-    h+=`<tr class="tot"><td colspan="7">Total</td><td class="${cls(tt)}">${inrS(tt)}</td><td class="${cls(ttp)}">${pct(ttp)}</td><td>${inr(ti)}</td><td>${inr(tc)}</td><td>${((tc/totalPortVal)*100).toFixed(1)}%</td><td class="${cls(tn)}">${inrS(tn)}</td><td class="${cls(tnp)}">${pct(tnp)}</td><td></td></tr>`;}
-  return h+`</tbody></table></div></div>`;
-}
-
-// ── Sectors tab ───────────────────────────────────────────
-// Tier target allocations (user defined)
-const TIER_TARGETS={'TIER 1':40,'TIER 2':35,'TIER 3':10,'TIER 4':5,'TIER 5':5,'TIER 6':5};
-const TIER_COLS={'TIER 1':'#3b82f6','TIER 2':'#059669','TIER 3':'#d97706','TIER 4':'#7c3aed','TIER 5':'#0891b2','TIER 6':'#dc2626'};
-
-function rSectors(){
-  const sectors=getSectorData();
-  const totalInv=sectors.reduce((s,[,v])=>s+v.inv,0);
-  const totalCur=sectors.reduce((s,[,v])=>s+v.cur,0);
-
-  if(!sectors.length){
-    document.getElementById('seca').innerHTML=`<div class="sec"><div class="em">No holdings found.</div></div>`;
-    return;
-  }
-
-  // ── TIER ALLOCATION TRACKER ───────────────────────────
-  // Build tier map from current holdings
-  const tierMap={};
-  const allTiers=['TIER 1','TIER 2','TIER 3','TIER 4','TIER 5','TIER 6'];
-  allTiers.forEach(t=>tierMap[t]={inv:0,cur:0,holdings:[]});
-
-  // Add all stocks/ETFs/MFs by their tier/sector
-  [...port.stocks,...port.etfs,...port.mf].forEach(item=>{
-    const tier=item.sector||'Unknown';
-    if(!tierMap[tier])tierMap[tier]={inv:0,cur:0,holdings:[]};
-    let inv=0,cur=0;
-    if(port.stocks.includes(item)||port.etfs.includes(item)){
-      const v=eqV(item);inv=v.inv;cur=v.cur;
-    }else{
-      const v=mV(item);inv=v.inv;cur=v.cur;
-    }
-    tierMap[tier].inv+=inv;tierMap[tier].cur+=cur;
-    tierMap[tier].holdings.push(item.name||item.symbol);
-  });
-
-  const grandTotal=Object.values(tierMap).reduce((s,v)=>s+v.inv,0)||1;
-
-  let h=`<div class="sec" style="margin-bottom:14px">`;
-  h+=`<div class="sech"><span class="sect">🎯 Tier Allocation — Current vs Target</span></div>`;
-
-  // Alert bar for biggest deviations
-  const alerts=allTiers.filter(t=>{
-    const curr=(tierMap[t]?.inv||0)/grandTotal*100;
-    const tgt=TIER_TARGETS[t]||0;
-    return Math.abs(curr-tgt)>8;
-  });
-  if(alerts.length){
-    h+=`<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#92400e">
-      ⚠️ <strong>Rebalancing needed:</strong> ${alerts.map(t=>{
-        const curr=((tierMap[t]?.inv||0)/grandTotal*100).toFixed(1);
-        const tgt=TIER_TARGETS[t];
-        const diff=parseFloat(curr)-tgt;
-        return `${t}: ${curr}% (target ${tgt}%, ${diff>0?'reduce by':'add '}${Math.abs(diff).toFixed(1)}%)`;
-      }).join(' · ')}
-    </div>`;
-  }
-
-  // Tier cards
-  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-bottom:16px">`;
-  allTiers.forEach(tier=>{
-    const tv=tierMap[tier]||{inv:0,cur:0,holdings:[]};
-    const curr=tv.inv/grandTotal*100;
-    const tgt=TIER_TARGETS[tier]||0;
-    const diff=curr-tgt;
-    const col=TIER_COLS[tier]||'#888';
-    const status=Math.abs(diff)<=3?'✅':Math.abs(diff)<=8?'🟡':'🔴';
-    const diffTxt=diff>0?`+${diff.toFixed(1)}% over`:diff<0?`${Math.abs(diff).toFixed(1)}% under`:'On target';
-    const diffCol=Math.abs(diff)<=3?'#059669':Math.abs(diff)<=8?'#d97706':'#dc2626';
-    // Progress bar — blue=current, grey=target
-    const barW=Math.min(curr/tgt*100,200); // relative to target
-    h+=`<div style="background:#fff;border:1px solid #eee;border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <span style="font-weight:600;font-size:14px"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:${col};margin-right:6px"></span>${tier}</span>
-        <span style="font-size:18px">${status}</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-        <span style="font-size:12px;color:#888">Current</span>
-        <span style="font-size:12px;color:#888">Target</span>
-      </div>
-      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-        <span style="font-size:22px;font-weight:700;color:${col}">${curr.toFixed(1)}%</span>
-        <span style="font-size:22px;font-weight:700;color:#ccc">${tgt}%</span>
-      </div>
-      <!-- Dual bar: grey=target, colored=current -->
-      <div style="position:relative;background:#f0f0f0;border-radius:4px;height:8px;margin-bottom:6px">
-        <div style="position:absolute;left:0;top:0;width:${tgt}%;height:8px;background:#ddd;border-radius:4px"></div>
-        <div style="position:absolute;left:0;top:0;width:${Math.min(curr,100)}%;height:8px;background:${col};border-radius:4px;opacity:0.85"></div>
-        <!-- Target marker -->
-        <div style="position:absolute;left:${tgt}%;top:-3px;width:2px;height:14px;background:#555;border-radius:1px"></div>
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <span style="font-size:11px;font-weight:600;color:${diffCol}">${diffTxt}</span>
-        <span style="font-size:11px;color:#888">${inr(tv.inv)}</span>
-      </div>
-      ${tv.holdings.length?`<div style="font-size:10px;color:#aaa;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${tv.holdings.slice(0,4).join(', ')}${tv.holdings.length>4?' +'+( tv.holdings.length-4)+' more':''}</div>`:'<div style="font-size:11px;color:#aaa;margin-top:6px">No holdings in this tier</div>'}
-    </div>`;
-  });
-  h+=`</div>`;
-
-  // Summary action table
-  h+=`<div class="scroll"><table><thead><tr><th>Tier</th><th>Invested</th><th>Current value</th><th>Current %</th><th>Target %</th><th>Difference</th><th>Action needed</th></tr></thead><tbody>`;
-  allTiers.forEach(tier=>{
-    const tv=tierMap[tier]||{inv:0,cur:0};
-    const curr=tv.inv/grandTotal*100;
-    const tgt=TIER_TARGETS[tier]||0;
-    const diff=curr-tgt;
-    const col=TIER_COLS[tier]||'#888';
-    const neededAmt=(tgt/100*grandTotal)-tv.inv;
-    let action='';
-    if(Math.abs(diff)<=2)action=`<span style="color:#059669">✅ On target</span>`;
-    else if(diff>0)action=`<span style="color:#dc2626">🔻 Reduce by ${inr(Math.abs(neededAmt))}</span>`;
-    else action=`<span style="color:#059669">🔺 Add ${inr(Math.abs(neededAmt))}</span>`;
-    h+=`<tr>
-      <td><span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:2px;background:${col};display:inline-block"></span><strong>${tier}</strong></span></td>
-      <td>${inr(tv.inv)}</td><td>${inr(tv.cur)}</td>
-      <td><strong style="color:${col}">${curr.toFixed(1)}%</strong></td>
-      <td>${tgt}%</td>
-      <td style="color:${Math.abs(diff)<=2?'#059669':diff>0?'#dc2626':'#059669'};font-weight:600">${diff>0?'+':''}${diff.toFixed(1)}%</td>
-      <td>${action}</td>
-    </tr>`;
-  });
-  h+=`<tr class="tot"><td>Total</td><td>${inr(grandTotal)}</td><td>${inr(totalCur)}</td><td>100%</td><td>100%</td><td>—</td><td>—</td></tr>`;
-  h+=`</tbody></table></div></div>`;
-
-  // ── HOLDINGS BY TIER ──────────────────────────────────
-  h+=`<div class="sec"><div class="sech"><span class="sect">Holdings by Tier</span></div>`;
-  h+=`<div class="scroll"><table><thead><tr><th>Tier</th><th>Holding</th><th>Type</th><th>Account</th><th>Invested</th><th>Value</th><th>P&L %</th></tr></thead><tbody>`;
-  allTiers.forEach(tier=>{
-    const col=TIER_COLS[tier]||'#888';
-    const items=[...port.stocks,...port.etfs,...port.mf].filter(x=>(x.sector||'')=== tier);
-    if(!items.length){
-      h+=`<tr><td><span class="sbadge" style="background:${col};color:#fff">${tier}</span></td><td colspan="6" style="color:#aaa;font-size:12px">No holdings</td></tr>`;
-      return;
-    }
-    items.forEach((item,idx)=>{
-      let inv=0,cur=0,pnlp=0;
-      if(port.stocks.includes(item)||port.etfs.includes(item)){const v=eqV(item);inv=v.inv;cur=v.cur;pnlp=v.pnlp;}
-      else{const v=mV(item);inv=v.inv;cur=v.cur;pnlp=v.pnlp;}
-      const type=port.stocks.includes(item)?'Stock':port.etfs.includes(item)?'ETF':'MF';
-      h+=`<tr>
-        <td>${idx===0?`<span class="sbadge" style="background:${col};color:#fff">${tier}</span>`:'<span style="color:#ddd">│</span>'}</td>
-        <td><strong>${item.name}</strong></td>
-        <td><span class="badge">${type}</span></td>
-        <td><span class="badge">${item.account}</span></td>
-        <td>${inr(inv)}</td><td>${inr(cur)}</td>
-        <td class="${cls(pnlp)}">${pct(pnlp)}</td>
-      </tr>`;
-    });
-  });
-  h+=`</tbody></table></div></div>`;
-  document.getElementById('seca').innerHTML=h;
-}
-
-// ── Exposure tab ──────────────────────────────────────────
-function rExposure(){
-  const totalPortVal=gSum('all').cur||1;
-  const totalPortInv=gSum('all').inv||1;
-
-  // Consolidate stocks+ETFs by symbol across all accounts
-  const eqMap={};
-  [...port.stocks,...port.etfs].forEach(s=>{
-    const v=eqV(s);
-    const type=port.stocks.includes(s)?'Stock':'ETF';
-    if(!eqMap[s.symbol])eqMap[s.symbol]={name:s.name,symbol:s.symbol,type,sector:s.sector,accounts:[],inv:0,cur:0,td:0};
-    eqMap[s.symbol].accounts.push(s.account);
-    eqMap[s.symbol].inv+=v.inv;eqMap[s.symbol].cur+=v.cur;eqMap[s.symbol].td+=v.td;
-  });
-  // Consolidate MFs by scheme code across all accounts
-  const mfMap={};
-  port.mf.forEach(m=>{
-    const v=mV(m);
-    if(!mfMap[m.schemeCode])mfMap[m.schemeCode]={name:m.name,code:m.schemeCode,type:'MF',sector:m.sector,accounts:[],inv:0,cur:0,td:0};
-    mfMap[m.schemeCode].accounts.push(m.account);
-    mfMap[m.schemeCode].inv+=v.inv;mfMap[m.schemeCode].cur+=v.cur;mfMap[m.schemeCode].td+=v.td;
-  });
-
-  const all=[...Object.values(eqMap),...Object.values(mfMap)].sort((a,b)=>b.cur-a.cur);
-
-  if(!all.length){
-    document.getElementById('expa').innerHTML=`<div class="sec"><div class="em">Add stocks, ETFs or mutual funds to see exposure analysis.</div></div>`;
-    return;
-  }
-
-  const riskLabel=p=>p>=20?'🔴 Very High':p>=10?'🟠 High':p>=5?'🟡 Moderate':'🟢 Low';
-  const riskCol=p=>p>=20?'#fef2f2':p>=10?'#fff7ed':p>=5?'#fefce8':'#f0fdf4';
-  const riskTxtCol=p=>p>=20?'#dc2626':p>=10?'#ea580c':p>=5?'#ca8a04':'#16a34a';
-
-  // Alert for >10% holdings
-  const highExp=all.filter(x=>(x.cur/totalPortVal)*100>=10);
-
-  let h=`<div class="sec">`;
-  if(highExp.length){
-    h+=`<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#92400e">
-      ⚠️ <strong>High concentration alert:</strong> ${highExp.map(x=>`${x.name} (${((x.cur/totalPortVal)*100).toFixed(1)}%)`).join(', ')} — consider diversifying.
-    </div>`;
-  }
-  h+=`<div class="sech">
-    <span class="sect">Portfolio concentration<span class="scnt"> — all accounts combined</span></span>
-    <span style="font-size:11px;color:#888">🟢 &lt;5% &nbsp;🟡 5–10% &nbsp;🟠 10–20% &nbsp;🔴 &gt;20%</span>
-  </div>`;
-  h+=`<div class="scroll"><table><thead><tr><th>Name</th><th>Type</th><th>Sector</th><th>Held in</th><th>Total invested</th><th>Total value</th><th>Portfolio %</th><th>Allocation bar</th><th>Risk</th></tr></thead><tbody>`;
-
-  all.forEach(x=>{
-    const portPct=(x.cur/totalPortVal)*100;
-    const col=riskTxtCol(portPct);const bg=riskCol(portPct);
-    const uniqueAccs=[...new Set(x.accounts)];
-    h+=`<tr style="background:${portPct>=10?bg:''}">
-      <td><strong>${x.name}</strong><br><span style="font-size:11px;color:#888">${x.symbol||x.code}</span></td>
-      <td><span class="badge">${x.type}</span></td>
-      <td style="font-size:12px;color:#666">${x.sector||'—'}</td>
-      <td style="font-size:11px">${uniqueAccs.map(a=>`<span class="badge" style="margin:1px;display:inline-block">${a}</span>`).join('')}</td>
-      <td>${inr(x.inv)}</td>
-      <td><strong>${inr(x.cur)}</strong></td>
-      <td><span style="font-size:15px;font-weight:700;color:${col}">${portPct.toFixed(1)}%</span></td>
-      <td style="min-width:120px">
-        <div style="background:#f0f0f0;border-radius:4px;height:8px">
-          <div style="width:${Math.min(portPct,100)}%;height:8px;border-radius:4px;background:${col}"></div>
-        </div>
-        <div style="font-size:10px;color:#888;margin-top:2px">${portPct.toFixed(1)}% of ₹${Math.round(totalPortVal/100000)}L portfolio</div>
-      </td>
-      <td style="white-space:nowrap">${riskLabel(portPct)}</td>
-    </tr>`;
-  });
-
-  const totalPct=all.reduce((s,x)=>(s+(x.cur/totalPortVal)*100),0);
-  h+=`<tr class="tot"><td colspan="4">Total (Stocks + ETFs + MF)</td><td>${inr(all.reduce((s,x)=>s+x.inv,0))}</td><td>${inr(all.reduce((s,x)=>s+x.cur,0))}</td><td>${totalPct.toFixed(1)}%</td><td colspan="2"></td></tr>`;
-  h+=`</tbody></table></div>
-  <div style="margin-top:10px;font-size:11px;color:#aaa;padding:4px 2px">
-    Portfolio % = holding current value ÷ total portfolio current value (all assets including FD, Gold, Land).
-    Holdings with same symbol across different accounts are merged into one row.
-  </div></div>`;
-
-  document.getElementById('expa').innerHTML=h;
-}
-
-function rTables(){
-  const a=fS;let h='';
-  if(a==='all'||a==='stocks') h+=mkEqSec('stocks',fi(port.stocks),'Stocks');
-  if(a==='all'||a==='etfs')   h+=mkEqSec('etfs',fi(port.etfs),'ETFs');
-  if(a==='all'||a==='mf'){
-    const it=fi(port.mf);let ti=0,tc=0,tt=0;
-    const totalPortVal=gSum('all').cur||1;
-    const allSectors=[...new Set([...port.stocks,...port.etfs,...port.mf].map(x=>x.sector).filter(Boolean))];
-    let mh=`<div class="sec"><div class="sech"><span class="sect">Mutual funds<span class="scnt">(${it.length})</span></span><button class="abtn" onclick="openAdd('mf')">+ Add</button></div>`;
-    if(!it.length)mh+=`<div class="em">No mutual funds yet</div>`;
-    else{
-      mh+=`<div class="scroll"><table><thead><tr><th>Fund name</th><th>Category</th><th>Acct</th><th>Units</th><th>Avg NAV</th><th>NAV now</th><th>Today ₹</th><th>Today %</th><th>Invested</th><th>Value</th><th>Portfolio %</th><th>P&L ₹</th><th>P&L %</th><th></th></tr></thead><tbody>`;
-      it.forEach(m=>{const v=mV(m);ti+=v.inv;tc+=v.cur;tt+=v.td;const si=allSectors.indexOf(m.sector);
-        const portPct=(v.cur/totalPortVal)*100;
-        const portColor=portPct>=20?'#dc2626':portPct>=10?'#ea580c':portPct>=5?'#d97706':'#059669';
-        mh+=`<tr><td><strong>${m.name}</strong></td>
-        <td>${m.sector?sectorDot(m.sector,si):'<span style="color:#aaa;font-size:11px">—</span>'}</td>
-        <td><span class="badge">${m.account}</span></td><td>${m.units}</td><td>${inr(m.avgNAV)}</td>
-        <td><strong>${v.hasLive?inr(v.nav):'—'}</strong></td>
-        <td class="${cls(v.td)}">${v.hasLive?inrS(v.td):'—'}</td><td class="${cls(v.tdp)}">${v.hasLive?pct(v.tdp):'—'}</td>
-        <td>${inr(v.inv)}</td><td><strong>${inr(v.cur)}</strong></td>
-        <td><span style="color:${portColor};font-weight:600">${portPct.toFixed(1)}%</span></td>
-        <td class="${cls(v.pnl)}">${inrS(v.pnl)}</td><td class="${cls(v.pnlp)}">${pct(v.pnlp)}</td>
-        <td style="white-space:nowrap"><button class="ib e" onclick="ei('mf','${m.id}')">✎</button><button class="ib d" onclick="di('mf','${m.id}')">×</button></td></tr>`;});
-      if(it.length>1){const tn=tc-ti,tnp=ti>0?(tn/ti)*100:0,ttp=(tc-tt)>0?(tt/(tc-tt))*100:0;mh+=`<tr class="tot"><td colspan="6">Total</td><td class="${cls(tt)}">${inrS(tt)}</td><td class="${cls(ttp)}">${pct(ttp)}</td><td>${inr(ti)}</td><td>${inr(tc)}</td><td>${((tc/totalPortVal)*100).toFixed(1)}%</td><td class="${cls(tn)}">${inrS(tn)}</td><td class="${cls(tnp)}">${pct(tnp)}</td><td></td></tr>`;}
-      mh+=`</tbody></table></div>`;}h+=mh+`</div>`;}
-  if(a==='all'||a==='gold'){
-    const gl=gc?` · Live: ${inr(gc.p)}/g <span class="${cls(gc.c)}">${pct(gc.cp)}</span>`:'';
-    const it=fi(port.gold);let ti=0,tc=0,tt=0;
-    let gh=`<div class="sec"><div class="sech"><span class="sect">Gold — physical<span class="scnt">(${it.length})${gl}</span></span><button class="abtn" onclick="openAdd('gold')">+ Add</button></div>`;
-    if(!it.length)gh+=`<div class="em">No gold yet</div>`;
-    else{gh+=`<div class="scroll"><table><thead><tr><th>Name</th><th>Acct</th><th>Grams</th><th>Avg ₹/g</th><th>Live ₹/g</th><th>Today ₹</th><th>Today %</th><th>Invested</th><th>Value</th><th>P&L ₹</th><th>P&L %</th><th></th></tr></thead><tbody>`;
-      it.forEach(g=>{const v=gV(g);ti+=v.inv;tc+=v.cur;tt+=v.td;
-        gh+=`<tr><td><strong>${g.name}</strong></td><td><span class="badge">${g.account}</span></td><td>${g.grams}g</td><td>${inr(g.avgPrice)}</td>
-        <td>${gc?inr(v.cp):'—'}</td><td class="${cls(v.td)}">${gc?inrS(v.td):'—'}</td><td class="${cls(v.tdp)}">${gc?pct(v.tdp):'—'}</td>
-        <td>${inr(v.inv)}</td><td><strong>${inr(v.cur)}</strong></td><td class="${cls(v.pnl)}">${inrS(v.pnl)}</td><td class="${cls(v.pnlp)}">${pct(v.pnlp)}</td>
-        <td><button class="ib e" onclick="ei('gold','${g.id}')">✎</button><button class="ib d" onclick="di('gold','${g.id}')">×</button></td></tr>`;});
-      if(it.length>1){const tn=tc-ti,tnp=ti>0?(tn/ti)*100:0,ttp=(tc-tt)>0?(tt/(tc-tt))*100:0;gh+=`<tr class="tot"><td colspan="5">Total</td><td class="${cls(tt)}">${inrS(tt)}</td><td class="${cls(ttp)}">${pct(ttp)}</td><td>${inr(ti)}</td><td>${inr(tc)}</td><td class="${cls(tn)}">${inrS(tn)}</td><td class="${cls(tnp)}">${pct(tnp)}</td><td></td></tr>`;}
-      gh+=`</tbody></table></div>`;}h+=gh+`</div>`;}
-  if(a==='all'||a==='fd'){
-    const fds=fi(port.fd);let ti=0,tc=0;
-    let fh=`<div class="sec"><div class="sech"><span class="sect">Fixed deposits<span class="scnt">(${fds.length})</span></span><button class="abtn" onclick="openAdd('fd')">+ Add</button></div>`;
-    if(!fds.length)fh+=`<div class="em">No FDs yet</div>`;
-    else{fh+=`<div class="scroll"><table><thead><tr><th>Bank</th><th>Acct</th><th>Principal</th><th>Rate</th><th>Maturity</th><th>Value now</th><th>Interest</th><th>Returns</th><th></th></tr></thead><tbody>`;
-      fds.forEach(f=>{const v=fV(f);ti+=v.inv;tc+=v.cur;const mat=f.maturityDate&&new Date(f.maturityDate)<new Date();
-        fh+=`<tr><td><strong>${f.name}</strong></td><td><span class="badge">${f.account}</span></td><td>${inr(f.principal)}</td><td>${f.rate}%</td>
-        <td style="${mat?'color:#dc2626':''}">${f.maturityDate||'—'}${mat?' ⚠️':''}</td>
-        <td><strong>${inr(v.cur)}</strong></td><td class="pos">${inr(v.pnl)}</td><td class="pos">${pct(v.pnlp)}</td>
-        <td><button class="ib e" onclick="ei('fd','${f.id}')">✎</button><button class="ib d" onclick="di('fd','${f.id}')">×</button></td></tr>`;});
-      if(fds.length>1){const tn=tc-ti,tnp=ti>0?(tn/ti)*100:0;fh+=`<tr class="tot"><td colspan="5">Total</td><td>${inr(ti)}</td><td>${inr(tc)}</td><td class="${cls(tn)}">${inrS(tn)}</td><td class="${cls(tnp)}">${pct(tnp)}</td><td></td></tr>`;}
-      fh+=`</tbody></table></div>`;}h+=fh+`</div>`;}
-  if(a==='all'||a==='nsc'){
-    const ns=fi(port.nsc);let ni=0,nc=0;
-    let nh=`<div class="sec"><div class="sech"><span class="sect">NSC<span class="scnt">(${ns.length}) · 7.7% p.a.</span></span><button class="abtn" onclick="openAdd('nsc')">+ Add</button></div>`;
-    if(!ns.length)nh+=`<div class="em">No NSC yet</div>`;
-    else{nh+=`<div class="scroll"><table><thead><tr><th>Name</th><th>Acct</th><th>Principal</th><th>Purchase date</th><th>Matures on</th><th>Value now</th><th>Interest</th><th>Returns</th><th></th></tr></thead><tbody>`;
-      ns.forEach(n=>{const v=nV(n);ni+=v.inv;nc+=v.cur;const md=new Date(n.purchaseDate);md.setFullYear(md.getFullYear()+5);const mds=md.toISOString().split('T')[0],mat=md<new Date();
-        nh+=`<tr><td><strong>${n.name||'NSC'}</strong></td><td><span class="badge">${n.account}</span></td><td>${inr(n.principal)}</td><td>${n.purchaseDate}</td>
-        <td style="${mat?'color:#dc2626':''}">${mds}${mat?' ⚠️':''}</td>
-        <td><strong>${inr(v.cur)}</strong></td><td class="pos">${inr(v.pnl)}</td><td class="pos">${pct(v.pnlp)}</td>
-        <td><button class="ib e" onclick="ei('nsc','${n.id}')">✎</button><button class="ib d" onclick="di('nsc','${n.id}')">×</button></td></tr>`;});
-      if(ns.length>1){const tn=nc-ni,tnp=ni>0?(tn/ni)*100:0;nh+=`<tr class="tot"><td colspan="5">Total</td><td>${inr(ni)}</td><td>${inr(nc)}</td><td class="${cls(tn)}">${inrS(tn)}</td><td class="${cls(tnp)}">${pct(tnp)}</td><td></td></tr>`;}
-      nh+=`</tbody></table></div>`;}h+=nh+`</div>`;}
-  if(a==='all'||a==='land'){
-    const ls=fi(port.land);
-    let lh=`<div class="sec"><div class="sech"><span class="sect">Land &amp; property<span class="scnt">(${ls.length})</span></span><button class="abtn" onclick="openAdd('land')">+ Add</button></div>`;
-    if(!ls.length)lh+=`<div class="em">No land yet</div>`;
-    else{lh+=`<div class="scroll"><table><thead><tr><th>Property</th><th>Acct</th><th>Area</th><th>Buy price</th><th>Current value</th><th>Gain ₹</th><th>Gain %</th><th></th></tr></thead><tbody>`;
-      ls.forEach(l=>{const v=lV(l);lh+=`<tr><td><strong>${l.name}</strong></td><td><span class="badge">${l.account}</span></td><td>${l.area||'—'}</td><td>${inr(l.purchasePrice)}</td><td><strong>${inr(v.cur)}</strong></td><td class="${cls(v.pnl)}">${inrS(v.pnl)}</td><td class="${cls(v.pnlp)}">${pct(v.pnlp)}</td><td><button class="ib e" onclick="ei('land','${l.id}')">✎</button><button class="ib d" onclick="di('land','${l.id}')">×</button></td></tr>`;});
-      lh+=`</tbody></table></div>`;}h+=lh+`</div>`;}
-  document.getElementById('ta').innerHTML=h;
-}
-
-// ── Charts ────────────────────────────────────────────────
-function rCharts(){
-  // Asset allocation donut
-  const at={'Stocks':fi(port.stocks).reduce((s,x)=>s+eqV(x).cur,0),'ETFs':fi(port.etfs).reduce((s,x)=>s+eqV(x).cur,0),'Mutual funds':fi(port.mf).reduce((s,x)=>s+mV(x).cur,0),'Gold':fi(port.gold).reduce((s,x)=>s+gV(x).cur,0),'FD':fi(port.fd).reduce((s,x)=>s+fV(x).cur,0),'NSC':fi(port.nsc).reduce((s,x)=>s+nV(x).cur,0),'Land':fi(port.land).reduce((s,x)=>s+lV(x).cur,0)};
-  const pl=Object.keys(at).filter(k=>at[k]>0),pd=pl.map(k=>Math.round(at[k])),pco=pl.map(k=>AMAP[k]);
-  if(pCh)pCh.destroy();
-  pCh=new Chart(document.getElementById('piec').getContext('2d'),{type:'doughnut',data:{labels:pl,datasets:[{data:pd,backgroundColor:pco,borderWidth:2,borderColor:'#fff'}]},options:{responsive:false,cutout:'60%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+inr(c.raw)}}}}});
-  const tot=pd.reduce((a,b)=>a+b,0);
-  document.getElementById('pleg').innerHTML=pl.map((l,i)=>`<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:${pco[i]}"></span>${l} ${tot?Math.round(pd[i]/tot*100):0}%</span>`).join('');
-
-  // Sector donut
-  const sectors=getSectorData();
-  const sl=sectors.map(([k])=>k),sd=sectors.map(([,v])=>Math.round(v.inv)),sc=sectors.map((_,i)=>SCOLS[i%SCOLS.length]);
-  if(sCh)sCh.destroy();
-  if(sl.length){
-    sCh=new Chart(document.getElementById('sectorc').getContext('2d'),{type:'doughnut',data:{labels:sl,datasets:[{data:sd,backgroundColor:sc,borderWidth:2,borderColor:'#fff'}]},options:{responsive:false,cutout:'60%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+inr(c.raw)}}}}});
-    const stot=sd.reduce((a,b)=>a+b,0);
-    document.getElementById('sectorleg').innerHTML=sl.map((l,i)=>`<span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:${sc[i]}"></span>${l} ${stot?Math.round(sd[i]/stot*100):0}%</span>`).join('');
-  }else{document.getElementById('sectorleg').innerHTML='<span style="color:#aaa">Add stocks/ETFs/MF and refresh to see sectors</span>';}
-
-  // Per-person bar
-  const av=ACCS.map(a=>Math.round(gSum(a).cur));
-  if(bCh)bCh.destroy();
-  bCh=new Chart(document.getElementById('barc').getContext('2d'),{type:'bar',data:{labels:AXLBL,datasets:[{data:av,backgroundColor:ACOL,borderRadius:6,borderSkipped:false}]},options:{responsive:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:([c])=>ACCS[c.dataIndex],label:c=>' '+inr(c.raw)}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v>=1e7?(v/1e7).toFixed(1)+'Cr':v>=1e5?(v/1e5).toFixed(0)+'L':'₹'+v,font:{size:10}},grid:{color:'#f0f0f0'}},x:{ticks:{font:{size:11}},grid:{display:false}}}}});
-
-  // Account P&L table
-  let th=`<thead><tr><th>Account</th><th>Invested</th><th>Value</th><th>Today ₹</th><th>Today %</th><th>P&L ₹</th><th>P&L %</th></tr></thead><tbody>`;
-  ACCS.forEach((a,i)=>{const s=gSum(a);th+=`<tr><td><strong><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${ACOL[i]};margin-right:6px"></span>${a}</strong></td><td>${inr(s.inv)}</td><td><strong>${inr(s.cur)}</strong></td><td class="${cls(s.td)}">${inrS(s.td)}</td><td class="${cls(s.tdp)}">${pct(s.tdp)}</td><td class="${cls(s.pnl)}">${inrS(s.pnl)}</td><td class="${cls(s.pnlp)}">${pct(s.pnlp)}</td></tr>`;});
-  const all=gSum('all');th+=`<tr class="tot"><td>All accounts</td><td>${inr(all.inv)}</td><td>${inr(all.cur)}</td><td class="${cls(all.td)}">${inrS(all.td)}</td><td class="${cls(all.tdp)}">${pct(all.tdp)}</td><td class="${cls(all.pnl)}">${inrS(all.pnl)}</td><td class="${cls(all.pnlp)}">${pct(all.pnlp)}</td></tr></tbody>`;
-  document.getElementById('atbl').innerHTML=th;
-}
-
-function ra(){rSum();if(fS==='charts')rCharts();else if(fS==='sectors')rSectors();else if(fS==='exposure')rExposure();else rTables();}
-
-// ── Modal ─────────────────────────────────────────────────
-function openAdd(t){em=null;document.getElementById('ov').classList.add('show');document.getElementById('mt').textContent='Add holding';document.getElementById('mtr').style.display='';document.getElementById('mat').value=t;rff();}
-function openEdit(type,data){em={type,data};document.getElementById('ov').classList.add('show');document.getElementById('mt').textContent='Edit holding';document.getElementById('mtr').style.display='none';rff(data);}
-function cm(){document.getElementById('ov').classList.remove('show');em=null;}
-
-function rff(data){
-  const type=em?em.type:document.getElementById('mat').value;
-  const d=data||em?.data||{};
-  const ao=ACCS.map(a=>`<option value="${a}"${d.account===a?' selected':''}>${a}</option>`).join('');
-  let h='';
-  if(type==='stocks'||type==='etfs'){
-    h=`<div class="fg"><label>${type==='stocks'?'Stock':'ETF'} name</label><input id="f1" value="${d.name||''}" placeholder="${type==='stocks'?'e.g. Reliance Industries':'e.g. Nifty 50 ETF'}"></div>
-    <div class="fg"><label>Symbol — NSE (e.g. RELIANCE) or BSE SME (e.g. MSECL.BO)</label><input id="f2" value="${d.symbol||''}" placeholder="${type==='stocks'?'e.g. RELIANCE, MSECL.BO':'e.g. NIFTYBEES, BANKBEES'}"></div>
-    <div class="fg"><label>Account holder</label><select id="f3">${ao}</select></div>
-    <div class="fg"><label>Quantity</label><input id="f4" type="number" value="${d.qty||''}"></div>
-    <div class="fg"><label>Avg buy price (₹)</label><input id="f5" type="number" value="${d.avgPrice||''}"></div>
-    <div class="fg"><label>Sector <span style="font-weight:400;color:#aaa">(auto-fills on Refresh — or type manually)</span></label><input id="f6s" value="${d.sector||''}" placeholder="e.g. Banking, Technology, Infrastructure"></div>`;
-  }else if(type==='mf'){
-    h=`<div class="fg"><label>Fund name</label><input id="f1" value="${d.name||''}" placeholder="e.g. SBI Bluechip Direct"></div>
-    <div class="fg"><label>AMFI scheme code</label><input id="f2" value="${d.schemeCode||''}" placeholder="e.g. 119598"></div>
-    <p class="tip">Find at mfapi.in → search fund → copy number from URL</p>
-    <div class="fg"><label>Account holder</label><select id="f3">${ao}</select></div>
-    <div class="fg"><label>Units held</label><input id="f4" type="number" step="0.001" value="${d.units||''}"></div>
-    <div class="fg"><label>Avg purchase NAV (₹)</label><input id="f5" type="number" step="0.01" value="${d.avgNAV||''}"></div>
-    <div class="fg"><label>Category <span style="font-weight:400;color:#aaa">(auto-fills on Refresh)</span></label><input id="f6s" value="${d.sector||''}" placeholder="e.g. Equity MF, Debt MF, ELSS MF"></div>`;
-  }else if(type==='gold'){
-    h=`<div class="fg"><label>Name / type</label><input id="f1" value="${d.name||''}" placeholder="e.g. 22K jewellery"></div>
-    <div class="fg"><label>Owner</label><select id="f3">${ao}</select></div>
-    <div class="fg"><label>Weight (grams)</label><input id="f4" type="number" step="0.01" value="${d.grams||''}"></div>
-    <div class="fg"><label>Avg purchase price (₹/gram)</label><input id="f5" type="number" value="${d.avgPrice||''}"></div>
-    <p class="tip">Live price from COMEX GC=F × USD/INR on refresh</p>`;
-  }else if(type==='fd'){
-    h=`<div class="fg"><label>Bank name</label><input id="f1" value="${d.name||''}" placeholder="e.g. SBI Bank"></div>
-    <div class="fg"><label>Account holder</label><select id="f3">${ao}</select></div>
-    <div class="fg"><label>Principal (₹)</label><input id="f4" type="number" value="${d.principal||''}"></div>
-    <div class="fg"><label>Interest rate (% p.a.)</label><input id="f5" type="number" step="0.01" value="${d.rate||''}"></div>
-    <div class="fg"><label>Start date</label><input id="f6" type="date" value="${d.startDate||''}"></div>
-    <div class="fg"><label>Maturity date</label><input id="f7" type="date" value="${d.maturityDate||''}"></div>
-    <div class="fg"><label>Compounding</label><select id="f8"><option value="annual"${(!d.compounding||d.compounding==='annual')?' selected':''}>Annual</option><option value="quarterly"${d.compounding==='quarterly'?' selected':''}>Quarterly</option><option value="monthly"${d.compounding==='monthly'?' selected':''}>Monthly</option></select></div>`;
-  }else if(type==='nsc'){
-    h=`<div class="fg"><label>Certificate name</label><input id="f1" value="${d.name||''}" placeholder="e.g. NSC-2022-01"></div>
-    <div class="fg"><label>Account holder</label><select id="f3">${ao}</select></div>
-    <div class="fg"><label>Principal (₹)</label><input id="f4" type="number" value="${d.principal||''}"></div>
-    <div class="fg"><label>Purchase date</label><input id="f6" type="date" value="${d.purchaseDate||''}"></div>
-    <p class="tip">NSC = 5 year lock-in · 7.7% p.a. compounded annually</p>`;
-  }else if(type==='land'){
-    h=`<div class="fg"><label>Property / location</label><input id="f1" value="${d.name||''}" placeholder="e.g. Plot — Ajmer"></div>
-    <div class="fg"><label>Owner</label><select id="f3">${ao}</select></div>
-    <div class="fg"><label>Area (optional)</label><input id="f9" value="${d.area||''}" placeholder="e.g. 500 sq.ft, 2 bigha"></div>
-    <div class="fg"><label>Purchase price (₹)</label><input id="f4" type="number" value="${d.purchasePrice||''}"></div>
-    <div class="fg"><label>Current market value (₹)</label><input id="f5" type="number" value="${d.currentValue||''}"></div>`;
-  }
-  document.getElementById('mfields').innerHTML=h;
-}
-
-function g(id){const e=document.getElementById(id);return e?e.value:'';}
-function gn(id){return parseFloat(g(id))||0;}
-
-function saveItem(){
-  const type=em?em.type:document.getElementById('mat').value;let item={};
-  if(type==='stocks'||type==='etfs'){
-    if(!g('f1')||!g('f2')||!gn('f4')||!gn('f5')){alert('Please fill all fields');return;}
-    item={id:em?.data?.id||uid(),name:g('f1'),symbol:g('f2').toUpperCase().trim(),account:g('f3'),qty:gn('f4'),avgPrice:gn('f5'),sector:g('f6s').trim()||em?.data?.sector||''};
-  }else if(type==='mf'){
-    if(!g('f1')||!g('f2')||!gn('f4')||!gn('f5')){alert('Please fill all fields');return;}
-    item={id:em?.data?.id||uid(),name:g('f1'),schemeCode:g('f2').trim(),account:g('f3'),units:gn('f4'),avgNAV:gn('f5'),sector:g('f6s').trim()||em?.data?.sector||''};
-  }else if(type==='gold'){
-    if(!g('f1')||!gn('f4')||!gn('f5')){alert('Please fill all fields');return;}
-    item={id:em?.data?.id||uid(),name:g('f1'),account:g('f3'),grams:gn('f4'),avgPrice:gn('f5')};
-  }else if(type==='fd'){
-    if(!g('f1')||!gn('f4')||!gn('f5')||!g('f6')){alert('Please fill required fields');return;}
-    item={id:em?.data?.id||uid(),name:g('f1'),account:g('f3'),principal:gn('f4'),rate:gn('f5'),startDate:g('f6'),maturityDate:g('f7'),compounding:g('f8')||'annual'};
-  }else if(type==='nsc'){
-    if(!gn('f4')||!g('f6')){alert('Please fill all fields');return;}
-    item={id:em?.data?.id||uid(),name:g('f1'),account:g('f3'),principal:gn('f4'),purchaseDate:g('f6')};
-  }else if(type==='land'){
-    if(!g('f1')||!gn('f4')){alert('Please fill all fields');return;}
-    item={id:em?.data?.id||uid(),name:g('f1'),account:g('f3'),area:g('f9'),purchasePrice:gn('f4'),currentValue:gn('f5')||gn('f4')};
-  }
-  if(em){port[type]=port[type].map(x=>x.id===em.data.id?item:x);}else{port[type].push(item);}
-  sv();cm();
-  const isEq=type==='stocks'||type==='etfs';
-  if(isEq){
-    fNSE(item.symbol).then(async()=>{
-      if(!item.sector){const sec=await fetchSector(item.symbol);if(sec){item.sector=sec;port[type]=port[type].map(x=>x.id===item.id?item:x);sv();}}ra();
-    });
-  }else if(type==='mf'&&!mfc[item.schemeCode])fMF(item.schemeCode).then(ra);
-  else if(type==='gold'&&!gc)fGold().then(ra);
-  else ra();
-}
-
-function ei(type,id){const item=port[type].find(x=>x.id===id);if(item)openEdit(type,item);}
-function di(type,id){if(confirm('Delete this holding?')){port[type]=port[type].filter(x=>x.id!==id);sv();ra();}}
-
-// ── Backup & Restore ─────────────────────────────────────
-function exportBackup(){
-  const data={
-    port,
-    manualCMP,
-    exportedAt:new Date().toLocaleString('en-IN'),
-    version:'famport_v2'
-  };
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  const d=new Date();
-  const fname='family_portfolio_backup_'+d.getDate()+'_'+(d.getMonth()+1)+'_'+d.getFullYear()+'.json';
-  a.download=fname;
-  a.click();
-  URL.revokeObjectURL(a.href);
-  alert('✅ Backup saved as: '+fname+'\n\nKeep this file safe — use "📂 Restore" button to reload data anytime.');
-}
-
-function importBackup(event){
-  const file=event.target.files[0];
-  if(!file)return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    try{
-      const data=JSON.parse(e.target.result);
-      // Support both direct port object and wrapped {port, manualCMP} format
-      const p=data.port||data;
-      let imported=0;
-      ['stocks','etfs','mf','gold','fd','nsc','land'].forEach(k=>{
-        if(p[k]&&Array.isArray(p[k])&&p[k].length){port[k]=p[k];imported+=p[k].length;}
-      });
-      if(data.manualCMP)Object.assign(manualCMP,data.manualCMP);
-      sv();rAccRow();ra();
-      alert('✅ Restore successful!\n'+imported+' holdings loaded from backup.\n\nExported at: '+(data.exportedAt||'unknown'));
-    }catch(err){
-      alert('❌ Invalid backup file. Please use a file exported from this portfolio tracker.');}
-  };
-  reader.readAsText(file);
-  event.target.value='';// reset so same file can be imported again
-}
-
-lv();
-
-// ── Auto-migrate tiers on every load ─────────────────────
-const MF_TIERS={
-  'quant small cap':'TIER 2','hsbc small cap':'TIER 2',
-  'motilal oswal mid':'TIER 2','quant mid cap':'TIER 2',
-  'quant multicap':'TIER 2','quant multi cap':'TIER 2',
-  'nippon india large cap':'TIER 1','canara robeco large cap':'TIER 1'
-};
-let migrated=false;
-// Fix ETF tiers
-port.etfs.forEach(e=>{
-  if(e.symbol==='GOLDIETF'&&e.sector!=='TIER 5'){e.sector='TIER 5';migrated=true;}
-  if(e.symbol==='SILVERBEES'&&e.sector!=='TIER 5'){e.sector='TIER 5';migrated=true;}
-});
-// Fix MF tiers
-port.mf.forEach(m=>{
-  const name=m.name.toLowerCase();
-  for(const[key,tier] of Object.entries(MF_TIERS)){
-    if(name.includes(key)&&m.sector!==tier){m.sector=tier;migrated=true;}
-  }
-});
-if(migrated)try{localStorage.setItem('famport_v4',JSON.stringify(port));}catch(e){}rAccRow();ra();
-const hm=port.stocks.length||port.etfs.length||port.mf.length||port.gold.length;
-if(hm)refreshAll();
-
-// Auto-remind to backup every 7 days
-try{
-  const lastBackup=localStorage.getItem('famport_lastBackup');
-  const daysSince=lastBackup?Math.floor((Date.now()-parseInt(lastBackup))/(86400000)):999;
-  if(daysSince>=7){
-    setTimeout(()=>{
-      const remind=confirm('💾 Backup reminder!\n\nYou haven\'t taken a backup in '+daysSince+' days.\nClick OK to download backup now, Cancel to remind later.');
-      if(remind){exportBackup();localStorage.setItem('famport_lastBackup',Date.now());}
-    },3000);
-  }
-}catch(e){}
-</script>
-</body>
-</html>
